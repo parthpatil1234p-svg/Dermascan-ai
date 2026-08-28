@@ -97,15 +97,18 @@ def create_app(enable_lifespan: bool = True) -> FastAPI:
         CORSMiddleware,
         allow_origins=[
             "https://dermascan-ai-eta.vercel.app",
+            "https://dermascan-ai.vercel.app",
             "http://localhost:5173",
             "http://localhost:3000",
             "http://127.0.0.1:5173",
+            *settings.frontend_origin_list,
         ],
         allow_origin_regex=r"https://.*\.vercel\.app",
         allow_credentials=True,
-        allow_methods=["*"],
+        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
         allow_headers=["*"],
         expose_headers=["*"],
+        max_age=86400,
     )
 
     @app.get("/", tags=["health"])

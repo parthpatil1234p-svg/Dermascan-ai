@@ -20,7 +20,10 @@ class Settings(BaseSettings):
         alias="ACCESS_TOKEN_EXPIRE_MINUTES",
         gt=0,
     )
-    frontend_origin: str = Field("http://localhost:5173", alias="FRONTEND_ORIGIN")
+    frontend_origin: str = Field(
+        "http://localhost:5173,https://dermascan-ai-eta.vercel.app",
+        alias="FRONTEND_ORIGIN",
+    )
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field(
         "INFO", alias="LOG_LEVEL"
     )

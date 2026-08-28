@@ -44,6 +44,14 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error("API Error details:", {
+      message: error.message,
+      url: error.config?.url,
+      baseURL: error.config?.baseURL,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
+
     if (error.response?.status === 401) {
       clearStoredToken();
       window.dispatchEvent(new Event("dermascan:unauthorized"));
