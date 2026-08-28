@@ -37,6 +37,14 @@ export function getFormErrorsFromApiError(error) {
     }, {});
   }
 
+  if (error.response?.data?.message) {
+    return { form: error.response.data.message };
+  }
+
+  if (error.message) {
+    return { form: `${error.message}. Please check connection.` };
+  }
+
   return { form: "Unable to complete the request. Please try again." };
 }
 
