@@ -16,8 +16,18 @@ export function clearStoredToken() {
   window.localStorage.removeItem(AUTH_TOKEN_KEY);
 }
 
+function resolveApiBaseUrl() {
+  const envUrl =
+    import.meta.env.VITE_API_BASE_URL ||
+    import.meta.env.VITE_API_URL ||
+    "https://dermascan-ai-5i1v.onrender.com/api";
+
+  const cleanUrl = envUrl.trim().replace(/\/+$/, "");
+  return cleanUrl.endsWith("/api") ? cleanUrl : `${cleanUrl}/api`;
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api",
+  baseURL: resolveApiBaseUrl(),
   timeout: 30000,
 });
 

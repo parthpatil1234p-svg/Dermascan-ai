@@ -95,11 +95,15 @@ def create_app(enable_lifespan: bool = True) -> FastAPI:
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.frontend_origin_list,
+        allow_origins=["*"],
         allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-        allow_headers=["Authorization", "Content-Type"],
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
+
+    @app.get("/", tags=["health"])
+    async def root_check() -> dict[str, str]:
+        return {"status": "ok", "service": settings.service_name, "message": "Backend is running"}
 
     @app.get(f"{settings.api_prefix}/health", tags=["health"])
     async def health_check() -> dict[str, object]:
