@@ -1,0 +1,8 @@
+INFO:     127.0.0.1:64281 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57825 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57823 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52797 - "GET /api/face-detection/test-upload HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:52798 - "POST /api/face-detection/test-upload/analyze HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51439 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49193 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49193 - "GET /openapi.json HTTP/1.1" 200 OK

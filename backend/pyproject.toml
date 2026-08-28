@@ -1,0 +1,44 @@
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+extend-exclude = '(\.venv|\.quality-tools|\.verify-python|storage|htmlcov)'
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [".venv", ".quality-tools", ".verify-python", "storage", "htmlcov"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+pretty = true
+show_error_codes = true
+follow_imports = "skip"
+files = [
+  "app/core/config.py",
+  "app/core/errors.py",
+  "app/core/observability.py",
+  "app/core/rate_limit.py",
+  "app/services/readiness_service.py",
+  "app/ml/demo_models.py",
+]
+exclude = '(^|/)(\.venv|\.quality-tools|\.verify-python|storage|htmlcov)/'
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["app"]
+omit = ["app/scripts/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+precision = 1

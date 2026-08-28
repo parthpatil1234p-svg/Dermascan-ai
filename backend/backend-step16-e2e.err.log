@@ -1,0 +1,30 @@
+INFO:     Started server process [29928]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8003 (Press CTRL+C to quit)
+2026-08-08 15:33:36,553 INFO dermascan.requests {"request_id":"439441813c504aa18641dbffa3ce130c","method":"GET","route":"/api/readiness","status":200,"duration_ms":13.28}
+2026-08-08 15:34:12,328 INFO dermascan.requests {"request_id":"d4e22bc52a68422d8c5537ca6e34a203","method":"POST","route":"/api/auth/login","status":200,"duration_ms":70.89}
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1786183452.879092   25560 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1786183455.355407   25560 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-08 15:34:17,373 INFO dermascan.requests {"request_id":"70d9dde114254ff3bc4a803b145368fb","method":"POST","route":"/api/face-detection/8084208d-38d6-45bd-b5d1-56e30815acdf/analyze","status":200,"duration_ms":5039.51}
+2026-08-08 15:35:08,141 INFO dermascan.requests {"request_id":"0d7af33eb7a248d4969033d04ad49b7a","method":"POST","route":"/api/auth/login","status":200,"duration_ms":73.78}
+2026-08-08 15:35:08,186 INFO dermascan.requests {"request_id":"d1b5ce30b9744f87a28434a947e519a6","method":"POST","route":"/api/image-preprocessing/8084208d-38d6-45bd-b5d1-56e30815acdf/process","status":200,"duration_ms":39.58}
+2026-08-08 15:35:08,216 INFO dermascan.requests {"request_id":"931e37ba8bd74a1a8f62991ad2f562bb","method":"POST","route":"/api/skin-type/8084208d-38d6-45bd-b5d1-56e30815acdf/analyze","status":200,"duration_ms":27.11}
+2026-08-08 15:35:08,251 INFO dermascan.requests {"request_id":"df39feb725f4492493b8978940e9fe6b","method":"POST","route":"/api/skin-concerns/8084208d-38d6-45bd-b5d1-56e30815acdf/analyze","status":200,"duration_ms":29.99}
+2026-08-08 15:35:08,343 INFO dermascan.requests {"request_id":"bd970cd6e4254722bffa31ef2f410816","method":"POST","route":"/api/product-eligibility/8084208d-38d6-45bd-b5d1-56e30815acdf/evaluate","status":200,"duration_ms":87.34}
+2026-08-08 15:35:08,405 INFO dermascan.requests {"request_id":"988799fa79dd4646aa1f455d73f268df","method":"POST","route":"/api/product-recommendations/8084208d-38d6-45bd-b5d1-56e30815acdf/generate","status":200,"duration_ms":45.62}
+2026-08-08 15:35:08,433 INFO dermascan.requests {"request_id":"43c1079f901c41b78b1c82e9471ae704","method":"POST","route":"/api/skincare-routines/8084208d-38d6-45bd-b5d1-56e30815acdf/generate","status":201,"duration_ms":21.49}
+2026-08-08 15:35:08,496 INFO dermascan.requests {"request_id":"0bb32871735a499f89aa5436c0829611","method":"POST","route":"/api/final-reports/8084208d-38d6-45bd-b5d1-56e30815acdf/generate","status":201,"duration_ms":58.64}
+2026-08-08 15:35:08,506 INFO dermascan.requests {"request_id":"827f839fa92f4612bce5616e46a56e43","method":"GET","route":"/api/final-reports/DSR-2026-0ECB2495","status":200,"duration_ms":6.18}
+2026-08-08 15:35:08,564 INFO dermascan.requests {"request_id":"4fdbf725705e4e45900ab0f5dfe4d779","method":"POST","route":"/api/final-reports/DSR-2026-0ECB2495/export/pdf","status":200,"duration_ms":34.4}
+2026-08-08 15:35:08,606 INFO dermascan.requests {"request_id":"a5bff2e21daa489c8510f0258ca13c7f","method":"POST","route":"/api/feedback","status":201,"duration_ms":36.17}
+2026-08-08 15:35:38,821 INFO dermascan.requests {"request_id":"6b2e17f5934941a688839fb70e491aac","method":"POST","route":"/api/auth/login","status":200,"duration_ms":75.92}
+2026-08-08 15:35:38,830 INFO dermascan.requests {"request_id":"28c672e69aa843db959d18428e7b5a34","method":"GET","route":"/api/product-eligibility/8084208d-38d6-45bd-b5d1-56e30815acdf","status":200,"duration_ms":5.35}
+2026-08-08 15:35:38,857 INFO dermascan.requests {"request_id":"7a585866eced41338d2f0da224db647a","method":"GET","route":"/api/product-recommendations/8084208d-38d6-45bd-b5d1-56e30815acdf","status":200,"duration_ms":5.84}
+2026-08-08 15:35:38,867 INFO dermascan.requests {"request_id":"a72300e5da8d427598f75165fd9606ed","method":"GET","route":"/api/skincare-routines/8084208d-38d6-45bd-b5d1-56e30815acdf","status":200,"duration_ms":5.35}
+2026-08-08 15:35:38,928 INFO dermascan.requests {"request_id":"d6cecc1eb6c64ab292f3551710723dc2","method":"GET","route":"/api/final-reports","status":200,"duration_ms":46.39}
+2026-08-08 15:45:23,605 INFO dermascan.requests {"request_id":"afe948dc4c3941e5947cf46bd1abf8fb","method":"POST","route":"/api/auth/login","status":200,"duration_ms":98.4}
+2026-08-08 15:45:23,666 INFO app.services.upload_service Temporary file removed.
+2026-08-08 15:45:23,667 INFO dermascan.requests {"request_id":"6f942416c09f470da035e5b5434e8e02","method":"DELETE","route":"/api/uploads/8084208d-38d6-45bd-b5d1-56e30815acdf","status":200,"duration_ms":35.99}

@@ -1,0 +1,6 @@
+numpy==1.26.4
+Pillow==11.2.1
+PyYAML==6.0.2
+pytest==8.3.5
+tensorflow-cpu==2.18.1
+matplotlib==3.10.3

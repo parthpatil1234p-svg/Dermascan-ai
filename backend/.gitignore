@@ -1,0 +1,7 @@
+@"
+.venv-run/
+.venv-run/**
+.venv/
+venv/
+__pycache__/
+"@ | Out-File -FilePath backend\.gitignore -Encoding utf8

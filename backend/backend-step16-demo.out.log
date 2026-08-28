@@ -1,0 +1,7 @@
+INFO:     127.0.0.1:57652 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57652 - "GET /api/readiness HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57658 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57658 - "GET /api/readiness HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60613 - "GET /api/readiness HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50029 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50029 - "GET /favicon.ico HTTP/1.1" 404 Not Found

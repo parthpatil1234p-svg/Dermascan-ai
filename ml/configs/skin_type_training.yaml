@@ -1,0 +1,43 @@
+seed: 42
+
+input:
+  width: 224
+  height: 224
+  channels: 3
+  colour_space: RGB
+  normalization: zero_to_one
+  resize_mode: letterbox
+
+dataset:
+  manifest: data/manifest.csv
+  classes:
+    - normal
+    - oily
+    - dry
+    - combination
+  train_ratio: 0.70
+  validation_ratio: 0.15
+  test_ratio: 0.15
+
+augmentation:
+  horizontal_flip: true
+  rotation_degrees: 8
+  translation_fraction: 0.05
+  zoom_fraction: 0.10
+  brightness_fraction: 0.08
+  contrast_fraction: 0.08
+
+training:
+  batch_size: 32
+  feature_extraction_epochs: 15
+  fine_tuning_epochs: 10
+  initial_learning_rate: 0.001
+  fine_tuning_learning_rate: 0.00001
+  dropout_rate: 0.30
+  early_stopping_patience: 4
+  fine_tune_layers: 30
+
+model:
+  architecture: MobileNetV2
+  pretrained_weights: imagenet
+  output_directory: artifacts

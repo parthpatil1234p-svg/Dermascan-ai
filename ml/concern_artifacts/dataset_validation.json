@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "code": "MANIFEST_NOT_FOUND",
+      "path": "C:\\Users\\PARTH\\OneDrive\\Documents\\Mini Project\\dermascan-ai\\ml\\data\\concern_dataset\\manifests\\manifest.csv"
+    }
+  ],
+  "valid": false
+}

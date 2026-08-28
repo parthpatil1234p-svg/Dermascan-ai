@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  header.sticky, footer, .print-hidden { display: none !important; }
+  body { background: white !important; color: #0f172a; }
+  .report-section { break-inside: avoid; }
+  article { max-width: none !important; }
+  button, select { display: none !important; }
+}
+
+:root {
+  color: #0f172a;
+  background: #f5fbff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  letter-spacing: 0;
+}
+
+textarea {
+  resize: vertical;
+}

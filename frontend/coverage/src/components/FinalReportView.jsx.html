@@ -1,0 +1,277 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/components/FinalReportView.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> FinalReportView.jsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/28</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/70</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/17</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/19</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AlertTriangle, Download, FlaskConical, Moon, Printer, ShieldCheck, Sun } from "lucide-react";
+import { useState } from "react";
+import DemoModeNotice from "./DemoModeNotice";
+&nbsp;
+&nbsp;
+const STATUS_LABELS = <span class="cstat-no" title="statement not covered" >{</span>
+  complete: "Complete",
+  complete_with_limitations: "Complete with Limitations",
+  incomplete: "Incomplete",
+  failed: "Failed",
+  superseded: "Superseded",
+};
+&nbsp;
+&nbsp;
+function <span class="fstat-no" title="function not covered" >formatDate(v</span>alue) {
+<span class="cstat-no" title="statement not covered" >  if (!value) <span class="cstat-no" title="statement not covered" >return "Not available";</span></span>
+<span class="cstat-no" title="statement not covered" >  return new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));</span>
+}
+&nbsp;
+&nbsp;
+function <span class="fstat-no" title="function not covered" >sensitivityLabel(v</span>alue) {
+<span class="cstat-no" title="statement not covered" >  if (value === true) <span class="cstat-no" title="statement not covered" >return "Yes";</span></span>
+<span class="cstat-no" title="statement not covered" >  if (value === false) <span class="cstat-no" title="statement not covered" >return "No";</span></span>
+<span class="cstat-no" title="statement not covered" >  return "Not sure";</span>
+}
+&nbsp;
+&nbsp;
+function <span class="fstat-no" title="function not covered" >RoutineTimeline({</span> title, icon: Icon, steps }) {
+<span class="cstat-no" title="statement not covered" >  return &lt;section className="report-section border-y border-slate-200 py-6"&gt;&lt;div className="flex items-center gap-3"&gt;&lt;Icon className="h-5 w-5 text-brand-700" aria-hidden="true" /&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;{title}&lt;/h2&gt;&lt;/div&gt;&lt;ol className="mt-5 space-y-5"&gt;{steps.map(<span class="fstat-no" title="function not covered" >(s</span>tep) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={`${title}-${step.step_number}`} className="grid grid-cols-[2rem_1fr] gap-4 break-inside-avoid"&gt;&lt;span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white"&gt;{step.step_number}&lt;/span&gt;&lt;div&gt;&lt;div className="flex flex-wrap items-center gap-2"&gt;&lt;h3 className="font-semibold text-slate-950"&gt;{step.product_name}&lt;/h3&gt;{step.is_optional ? &lt;span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-bold text-amber-900"&gt;Optional&lt;/span&gt; : null}{step.is_demo_product ? &lt;span className="rounded-md bg-clinic-100 px-2 py-1 text-xs font-bold text-clinic-900"&gt;Demo&lt;/span&gt; : null}&lt;/div&gt;&lt;p className="mt-1 text-sm font-medium text-brand-700"&gt;{step.category} · {step.brand_name}&lt;/p&gt;&lt;p className="mt-2 text-sm leading-6 text-slate-700"&gt;{step.purpose}&lt;/p&gt;&lt;p className="mt-1 text-sm leading-6 text-slate-600"&gt;{step.usage_guidance}&lt;/p&gt;{step.cautions.length ? &lt;p className="mt-2 text-sm text-amber-900"&gt;Caution: {step.cautions.join(" ")}&lt;/p&gt; : null}&lt;/div&gt;&lt;/li&gt;)</span>}&lt;/ol&gt;&lt;/section&gt;;</span>
+}
+&nbsp;
+&nbsp;
+export default function <span class="fstat-no" title="function not covered" >FinalReportView({</span> report, onExport, isExporting = <span class="branch-0 cbranch-no" title="branch not covered" >false, p</span>rintMode = <span class="branch-0 cbranch-no" title="branch not covered" >false }</span>) {
+  const [privacyMode, setPrivacyMode<span class="cstat-no" title="statement not covered" >] = useState("standard");</span>
+  const profile = <span class="cstat-no" title="statement not covered" >report.skin_profile_summary || {};</span>
+  const skin = <span class="cstat-no" title="statement not covered" >report.skin_type_summary || {};</span>
+  const concerns = <span class="cstat-no" title="statement not covered" >report.visible_concern_summary || { observed: [], possible: [], uncertain: [] };</span>
+<span class="cstat-no" title="statement not covered" >  return &lt;article className="mx-auto max-w-7xl space-y-9" aria-labelledby="final-report-title"&gt;</span>
+    &lt;DemoModeNotice visible={report.analysis_mode === "demonstration"} /&gt;
+    &lt;section className="report-section border-y border-slate-300 py-7"&gt;&lt;div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"&gt;&lt;div&gt;&lt;p className="text-sm font-bold uppercase text-brand-700"&gt;DermaScan AI&lt;/p&gt;&lt;h1 id="final-report-title" className="mt-2 text-3xl font-bold text-slate-950"&gt;{report.title}&lt;/h1&gt;&lt;dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600"&gt;&lt;div&gt;&lt;dt className="inline font-semibold text-slate-800"&gt;Report ID: &lt;/dt&gt;&lt;dd className="inline"&gt;{report.final_report_id}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="inline font-semibold text-slate-800"&gt;Version: &lt;/dt&gt;&lt;dd className="inline"&gt;{report.report_version}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="inline font-semibold text-slate-800"&gt;Generated: &lt;/dt&gt;&lt;dd className="inline"&gt;{formatDate(report.generated_at)}&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;&lt;/div&gt;&lt;div className="flex flex-col items-start gap-3"&gt;&lt;span className="rounded-md bg-brand-100 px-3 py-2 text-sm font-bold text-brand-900"&gt;Status: {STATUS_LABELS[report.report_status] || report.report_status}&lt;/span&gt;{!printMode ? &lt;div className="print-hidden flex flex-wrap gap-2"&gt;&lt;button type="button" onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >w</span>indow.print()} c</span>lassName="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600"&gt;&lt;Printer className="h-4 w-4" aria-hidden="true" /&gt;Print&lt;/button&gt;&lt;label className="text-sm font-semibold text-slate-700"&gt;&lt;span className="sr-only"&gt;PDF privacy mode&lt;/span&gt;&lt;select value={privacyMode} onChange={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; <span class="cstat-no" title="statement not covered" >setPrivacyMode(event.target.value)} c</span>lassName="rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300"&gt;&lt;option value="standard"&gt;Standard PDF&lt;/option&gt;&lt;option value="privacy_reduced"&gt;Privacy-reduced PDF&lt;/option&gt;&lt;option value="technical"&gt;Technical PDF&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;button type="button" onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nExport?.(privacyMode)} d</span>isabled={isExporting || !report.can_export_pdf} className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white disabled:bg-slate-300"&gt;&lt;Download className="h-4 w-4" aria-hidden="true" /&gt;{isExporting ? "Exporting..." : "Export PDF"}&lt;/button&gt;&lt;/div&gt; : null}&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;
+&nbsp;
+    &lt;section className="report-section border-l-4 border-red-500 bg-red-50 px-5 py-5"&gt;&lt;div className="flex items-start gap-3"&gt;&lt;AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-red-700" aria-hidden="true" /&gt;&lt;div&gt;&lt;h2 className="font-bold text-red-950"&gt;Important Disclaimer&lt;/h2&gt;&lt;p className="mt-2 text-sm leading-6 text-red-950"&gt;{report.medical_disclaimer}&lt;/p&gt;&lt;p className="mt-2 text-sm leading-6 text-red-950"&gt;Seek professional advice for severe, painful, infected, persistent, rapidly changing, or unusual skin concerns.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;
+&nbsp;
+    &lt;section className="report-section"&gt;&lt;h2 className="text-2xl font-bold text-slate-950"&gt;Executive Summary&lt;/h2&gt;&lt;p className="mt-3 max-w-4xl text-base leading-7 text-slate-700"&gt;{report.summary}&lt;/p&gt;&lt;/section&gt;
+&nbsp;
+    &lt;dl className="report-section grid gap-4 sm:grid-cols-2 lg:grid-cols-5"&gt;&lt;div className="border-l-4 border-brand-500 px-4"&gt;&lt;dt className="text-sm text-slate-600"&gt;Estimated skin type&lt;/dt&gt;&lt;dd className="mt-1 text-xl font-bold text-slate-950"&gt;{skin.skin_type || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div className="border-l-4 border-clinic-500 px-4"&gt;&lt;dt className="text-sm text-slate-600"&gt;Skin-type confidence&lt;/dt&gt;&lt;dd className="mt-1 text-xl font-bold text-slate-950"&gt;{skin.confidence_level || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div className="border-l-4 border-leaf-500 px-4"&gt;&lt;dt className="text-sm text-slate-600"&gt;Observed characteristics&lt;/dt&gt;&lt;dd className="mt-1 text-xl font-bold text-slate-950"&gt;{concerns.observed.length}&lt;/dd&gt;&lt;/div&gt;&lt;div className="border-l-4 border-amber-500 px-4"&gt;&lt;dt className="text-sm text-slate-600"&gt;Recommendation confidence&lt;/dt&gt;&lt;dd className="mt-1 text-xl font-bold text-slate-950"&gt;{report.engine_versions.recommendation ? "Recorded" : "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div className="border-l-4 border-slate-500 px-4"&gt;&lt;dt className="text-sm text-slate-600"&gt;Routine steps&lt;/dt&gt;&lt;dd className="mt-1 text-xl font-bold text-slate-950"&gt;{report.morning_routine.length + report.night_routine.length}&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;
+&nbsp;
+    &lt;section className="report-section border-y border-slate-200 py-6"&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;User-Provided Skin Profile&lt;/h2&gt;&lt;p className="mt-1 text-sm text-slate-600"&gt;These values were self-reported and are separate from image observations.&lt;/p&gt;&lt;dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3"&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Age group&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.age_group || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Country&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.country || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Oiliness / dryness&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.oiliness_level || "Unavailable"} / {profile.dryness_level || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Self-reported sensitivity&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{sensitivityLabel(profile.self_reported_sensitivity)}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Fragrance preference&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.fragrance_preference || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Experience&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.experience_level || "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Known allergies&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.known_allergies?.join(", ") || "None reported"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold text-slate-800"&gt;Ingredients to avoid&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{profile.ingredients_to_avoid?.join(", ") || "None selected"}&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;&lt;/section&gt;
+&nbsp;
+    &lt;section className="report-section"&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;Safe Image Processing Summary&lt;/h2&gt;&lt;dl className="mt-4 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4"&gt;{Object.entries(report.image_processing_summary || {}).map(<span class="fstat-no" title="function not covered" >([</span>key, value]) =&gt; <span class="cstat-no" title="statement not covered" >&lt;div key={key} className="border-l-2 border-slate-300 pl-3"&gt;&lt;dt className="font-semibold text-slate-800"&gt;{key.replaceAll("_", " ")}&lt;/dt&gt;&lt;dd className="mt-1 text-slate-700"&gt;{typeof value === "boolean" ? (value ? "Yes" : "No") : value ?? "Unavailable"}&lt;/dd&gt;&lt;/div&gt;)</span>}&lt;/dl&gt;&lt;/section&gt;
+&nbsp;
+    &lt;section className="report-section"&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;AI-Assisted Visible Results&lt;/h2&gt;&lt;div className="mt-5 grid gap-6 lg:grid-cols-3"&gt;{["observed", "possible", "uncertain"].map(<span class="fstat-no" title="function not covered" >(g</span>roup) =&gt; <span class="cstat-no" title="statement not covered" >&lt;section key={group}&gt;&lt;h3 className="font-semibold capitalize text-slate-950"&gt;{group}&lt;/h3&gt;{concerns[group].length ? &lt;ul className="mt-3 space-y-3"&gt;{concerns[group].map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={item.code} className="border-l-2 border-brand-300 pl-3 text-sm"&gt;&lt;p className="font-semibold text-slate-900"&gt;{item.name}&lt;/p&gt;&lt;p className="mt-1 text-slate-700"&gt;{item.visible_severity} visible appearance · {item.regions.join(", ") || "Full face"}&lt;/p&gt;&lt;p className="mt-1 text-slate-600"&gt;Confidence: {item.confidence}%&lt;/p&gt;&lt;/li&gt;)</span>}&lt;/ul&gt; : &lt;p className="mt-3 text-sm text-slate-500"&gt;None reported in this group.&lt;/p&gt;}&lt;/section&gt;)</span>}&lt;/div&gt;&lt;/section&gt;
+&nbsp;
+    &lt;section className="report-section grid gap-7 lg:grid-cols-2"&gt;&lt;div&gt;&lt;div className="flex items-center gap-2"&gt;&lt;FlaskConical className="h-5 w-5 text-leaf-700" aria-hidden="true" /&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;Potentially Relevant Ingredient Roles&lt;/h2&gt;&lt;/div&gt;&lt;ul className="mt-4 space-y-4"&gt;{report.ingredient_guidance.potentially_relevant.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={item.ingredient_role} className="border-l-2 border-leaf-400 pl-3 text-sm"&gt;&lt;p className="font-semibold text-slate-900"&gt;{item.ingredient_role}&lt;/p&gt;&lt;p className="mt-1 text-slate-700"&gt;{item.reason}&lt;/p&gt;&lt;p className="mt-1 text-slate-500"&gt;Examples: {item.examples.join(", ")}&lt;/p&gt;&lt;/li&gt;)</span>}&lt;/ul&gt;&lt;/div&gt;&lt;div&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;Avoid or Review&lt;/h2&gt;&lt;ul className="mt-4 space-y-4"&gt;{report.ingredient_guidance.avoid_or_review.length ? report.ingredient_guidance.avoid_or_review.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={item.item} className="border-l-2 border-amber-400 pl-3 text-sm"&gt;&lt;p className="font-semibold text-slate-900"&gt;{item.item}&lt;/p&gt;&lt;p className="mt-1 text-slate-700"&gt;{item.reason}&lt;/p&gt;&lt;/li&gt;)</span> : &lt;li className="text-sm text-slate-500"&gt;No selected avoidance item was available.&lt;/li&gt;}&lt;/ul&gt;&lt;/div&gt;&lt;/section&gt;
+&nbsp;
+    &lt;section className="report-section"&gt;&lt;h2 className="text-2xl font-bold text-slate-950"&gt;Product Recommendations&lt;/h2&gt;&lt;p className="mt-2 text-sm text-slate-600"&gt;Recommendation scores are project-specific relevance scores and do not guarantee product safety or effectiveness.&lt;/p&gt;&lt;div className="mt-5 grid gap-5 lg:grid-cols-2"&gt;{report.product_recommendations.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;article key={item.product_id} className="break-inside-avoid rounded-lg border border-slate-200 bg-white p-5"&gt;&lt;div className="flex justify-between gap-4"&gt;&lt;div&gt;&lt;p className="text-xs font-bold uppercase text-brand-700"&gt;{item.category} · Rank {item.rank}&lt;/p&gt;&lt;h3 className="mt-1 text-lg font-bold text-slate-950"&gt;{item.product_name}&lt;/h3&gt;&lt;p className="text-sm text-slate-600"&gt;{item.brand_name}&lt;/p&gt;&lt;/div&gt;&lt;span className="h-fit rounded-md bg-brand-100 px-2 py-1 text-sm font-bold text-brand-900"&gt;{item.score}/100&lt;/span&gt;&lt;/div&gt;&lt;p className="mt-4 text-sm leading-6 text-slate-700"&gt;{item.why_recommended}&lt;/p&gt;{item.cautions.length ? &lt;p className="mt-3 text-sm text-amber-900"&gt;Cautions: {item.cautions.join(" ")}&lt;/p&gt; : null}&lt;dl className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-3 text-xs text-slate-600"&gt;&lt;div&gt;&lt;dt className="font-semibold"&gt;Price at report time&lt;/dt&gt;&lt;dd&gt;{item.price_at_report_time ? `INR ${item.price_at_report_time.amount}` : "Unavailable"}&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt className="font-semibold"&gt;Availability&lt;/dt&gt;&lt;dd&gt;{item.availability_at_report_time}&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;{item.demo_status ? &lt;p className="mt-3 text-xs font-bold text-clinic-800"&gt;Demonstration Product&lt;/p&gt; : null}&lt;/article&gt;)</span>}&lt;/div&gt;&lt;/section&gt;
+&nbsp;
+    &lt;div className="grid gap-8 lg:grid-cols-2"&gt;&lt;RoutineTimeline title="Morning Routine" icon={Sun} steps={report.morning_routine} /&gt;&lt;RoutineTimeline title="Night Routine" icon={Moon} steps={report.night_routine} /&gt;&lt;/div&gt;
+&nbsp;
+    &lt;section className="report-section grid gap-7 lg:grid-cols-2"&gt;&lt;div&gt;&lt;div className="flex items-center gap-2"&gt;&lt;ShieldCheck className="h-5 w-5 text-leaf-700" aria-hidden="true" /&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;Safety Guidance&lt;/h2&gt;&lt;/div&gt;&lt;ul className="mt-4 space-y-3"&gt;{report.safety_guidance.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={item} className="text-sm leading-6 text-slate-700"&gt;{item}&lt;/li&gt;)</span>}&lt;/ul&gt;&lt;/div&gt;&lt;div&gt;&lt;h2 className="text-xl font-bold text-slate-950"&gt;Limitations&lt;/h2&gt;&lt;ul className="mt-4 space-y-3"&gt;{report.limitations.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={item} className="text-sm leading-6 text-slate-700"&gt;{item}&lt;/li&gt;)</span>}&lt;/ul&gt;&lt;/div&gt;&lt;/section&gt;
+&nbsp;
+    &lt;details className="report-section border-y border-slate-200 py-5"&gt;&lt;summary className="cursor-pointer font-semibold text-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600"&gt;Model, engine, and data-freshness details&lt;/summary&gt;&lt;div className="mt-5 space-y-5 text-sm text-slate-700"&gt;&lt;p&gt;&lt;strong&gt;Model versions:&lt;/strong&gt; {JSON.stringify(report.model_versions)}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Engine versions:&lt;/strong&gt; {JSON.stringify(report.engine_versions)}&lt;/p&gt;&lt;div className="overflow-x-auto"&gt;&lt;table className="w-full border-collapse text-left"&gt;&lt;caption className="sr-only"&gt;Product data freshness&lt;/caption&gt;&lt;thead&gt;&lt;tr className="border-b border-slate-300"&gt;&lt;th className="p-2"&gt;Product ID&lt;/th&gt;&lt;th className="p-2"&gt;Price checked&lt;/th&gt;&lt;th className="p-2"&gt;Availability checked&lt;/th&gt;&lt;th className="p-2"&gt;Source verified&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;{report.data_freshness.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >&lt;tr key={item.product_id} className="border-b border-slate-100"&gt;&lt;td className="p-2"&gt;{item.product_id}&lt;/td&gt;&lt;td className="p-2"&gt;{formatDate(item.price_checked_at)}&lt;/td&gt;&lt;td className="p-2"&gt;{formatDate(item.availability_checked_at)}&lt;/td&gt;&lt;td className="p-2"&gt;{formatDate(item.source_verified_at)}&lt;/td&gt;&lt;/tr&gt;)</span>}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/details&gt;
+  &lt;/article&gt;;
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-08-08T10:12:15.118Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

@@ -1,0 +1,145 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/pages/ReportsPage.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/pages</a> ReportsPage.jsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/8</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Archive, CalendarDays, Download, Eye, FileText, Printer } from "lucide-react";
+import { useEffect } from "react";
+import EmptyState from "../components/EmptyState";
+import ErrorMessage from "../components/ErrorMessage";
+import PageHeader from "../components/PageHeader";
+import PrimaryButton from "../components/PrimaryButton";
+import SecondaryButton from "../components/SecondaryButton";
+import { ROUTES } from "../constants/appContent";
+import { useFinalReport } from "../context/FinalReportContext";
+&nbsp;
+&nbsp;
+export default function <span class="fstat-no" title="function not covered" >ReportsPage() {</span>
+  const { reportHistory, pagination, isLoading, isExporting, error, loadHistory, archive, exportPdf <span class="cstat-no" title="statement not covered" >} = useFinalReport();</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span> <span class="cstat-no" title="statement not covered" >loadHistory({ page: 1, page_size: 12, sort: "newest" }).catch(<span class="fstat-no" title="function not covered" >() =&gt; {</span>}); }</span>, [loadHistory]);</span>
+<span class="cstat-no" title="statement not covered" >  return &lt;section className="px-4 py-14 sm:px-6 lg:px-8"&gt;&lt;PageHeader eyebrow="Owner-protected history" title="Final Report History" description="View, print, export, or archive versioned guidance reports without exposing facial images or private identifiers." /&gt;&lt;div className="mx-auto max-w-7xl"&gt;&lt;ErrorMessage message={error} /&gt;</span>
+    {isLoading &amp;&amp; !reportHistory.length ? &lt;p className="text-center text-sm font-semibold text-brand-700" role="status"&gt;Loading report history...&lt;/p&gt; : null}
+    {!isLoading &amp;&amp; !reportHistory.length ? &lt;EmptyState icon={FileText} title="No final reports yet" description="Complete the analysis, recommendation, and routine workflow to generate a versioned final report." action={{ label: "Start Analysis", to: ROUTES.faceScan }} /&gt; : &lt;div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"&gt;{reportHistory.map(<span class="fstat-no" title="function not covered" >(r</span>eport) =&gt; <span class="cstat-no" title="statement not covered" >&lt;article key={report.final_report_id} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"&gt;&lt;div className="flex items-start justify-between gap-3"&gt;&lt;div&gt;&lt;p className="text-xs font-bold text-brand-700"&gt;{report.final_report_id}&lt;/p&gt;&lt;h2 className="mt-2 text-xl font-bold text-slate-950"&gt;{report.skin_type}&lt;/h2&gt;&lt;/div&gt;&lt;span className="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700"&gt;v{report.report_version} · {report.report_status.replaceAll("_", " ")}&lt;/span&gt;&lt;/div&gt;&lt;div className="mt-4 flex items-center gap-2 text-sm text-slate-600"&gt;&lt;CalendarDays className="h-4 w-4" aria-hidden="true" /&gt;{new Date(report.analysis_date).toLocaleDateString("en-IN")}&lt;/div&gt;&lt;p className="mt-4 text-sm text-slate-700"&gt;{report.main_visible_observations.join(", ") || "No observed characteristic summary"}&lt;/p&gt;&lt;p className="mt-2 text-xs text-slate-500"&gt;Routine: {report.routine_status}&lt;/p&gt;&lt;div className="mt-5 grid grid-cols-2 gap-2"&gt;&lt;SecondaryButton to={`/reports/${report.final_report_id}`} icon={Eye}&gt;View&lt;/SecondaryButton&gt;&lt;SecondaryButton to={`/reports/${report.final_report_id}/print`} icon={Printer}&gt;Print&lt;/SecondaryButton&gt;&lt;SecondaryButton type="button" icon={Download} disabled={isExporting} onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >e</span>xportPdf(report.final_report_id, "standard").catch(<span class="fstat-no" title="function not covered" >() =&gt; {</span>})}&gt;P</span>DF&lt;/SecondaryButton&gt;&lt;SecondaryButton type="button" icon={Archive} onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >a</span>rchive(report.final_report_id).catch(<span class="fstat-no" title="function not covered" >() =&gt; {</span>})}&gt;A</span>rchive&lt;/SecondaryButton&gt;&lt;/div&gt;&lt;/article&gt;)</span>}&lt;/div&gt;}
+    {pagination?.has_next ? &lt;div className="mt-7 text-center"&gt;&lt;PrimaryButton onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >l</span>oadHistory({ page: pagination.page + 1, page_size: 12 }).catch(<span class="fstat-no" title="function not covered" >() =&gt; {</span>})}&gt;N</span>ext Page&lt;/PrimaryButton&gt;&lt;/div&gt; : null}
+  &lt;/div&gt;&lt;/section&gt;;
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-08-08T10:12:15.118Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

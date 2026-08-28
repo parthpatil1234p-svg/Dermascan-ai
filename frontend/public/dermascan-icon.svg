@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DermaScan AI icon">
+  <rect width="128" height="128" rx="28" fill="#EFFAF9"/>
+  <path d="M64 24C43.013 24 26 41.013 26 62C26 82.987 43.013 100 64 100C84.987 100 102 82.987 102 62C102 41.013 84.987 24 64 24Z" fill="white" stroke="#1B9AAA" stroke-width="5"/>
+  <path d="M46 58C49.5 51 56 47 64 47C72 47 78.5 51 82 58" stroke="#1559B7" stroke-width="5" stroke-linecap="round"/>
+  <path d="M47 72C56.5 81 71.5 81 81 72" stroke="#31A66A" stroke-width="5" stroke-linecap="round"/>
+  <path d="M42 38L35 31M86 38L93 31M42 86L35 93M86 86L93 93" stroke="#1B9AAA" stroke-width="5" stroke-linecap="round"/>
+</svg>
+

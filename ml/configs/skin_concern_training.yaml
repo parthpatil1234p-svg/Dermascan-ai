@@ -1,0 +1,49 @@
+seed: 42
+
+input:
+  width: 224
+  height: 224
+  channels: 3
+  colour_space: RGB
+  normalization: zero_to_one
+  resize_mode: letterbox
+
+dataset:
+  manifest: data/concern_dataset/manifests/manifest.csv
+  train_ratio: 0.70
+  validation_ratio: 0.15
+  test_ratio: 0.15
+
+augmentation:
+  horizontal_flip: true
+  rotation_degrees: 8
+  translation_fraction: 0.05
+  zoom_fraction: 0.10
+  brightness_fraction: 0.08
+  contrast_fraction: 0.08
+
+model:
+  architecture: MobileNetV2
+  pretrained_weights: imagenet
+  dropout_rate: 0.30
+  number_of_labels: 10
+  output_directory: concern_artifacts
+
+training:
+  batch_size: 32
+  feature_extraction_epochs: 15
+  fine_tuning_epochs: 10
+  initial_learning_rate: 0.001
+  fine_tuning_learning_rate: 0.00001
+  early_stopping_patience: 4
+  fine_tune_layers: 30
+
+loss:
+  type: weighted_masked_binary_crossentropy
+
+thresholds:
+  development_default: 0.50
+  tune_per_label: true
+  search_min: 0.20
+  search_max: 0.80
+  search_step: 0.01
