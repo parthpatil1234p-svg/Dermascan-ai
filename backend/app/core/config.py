@@ -25,7 +25,7 @@ class Settings(BaseSettings):
         "INFO", alias="LOG_LEVEL"
     )
     enable_hsts: bool = Field(False, alias="ENABLE_HSTS")
-    ai_demo_mode: bool = Field(False, alias="AI_DEMO_MODE")
+    ai_demo_mode: bool = Field(True, alias="AI_DEMO_MODE")
     rate_limit_enabled: bool = Field(True, alias="RATE_LIMIT_ENABLED")
     rate_limit_window_seconds: int = Field(60, alias="RATE_LIMIT_WINDOW_SECONDS", ge=1, le=3600)
     rate_limit_registration: int = Field(5, alias="RATE_LIMIT_REGISTRATION", ge=1, le=1000)
