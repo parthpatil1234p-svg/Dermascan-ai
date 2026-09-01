@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import WelcomeModal from "../components/WelcomeModal";
 
 export default function AppLayout() {
   return (
@@ -10,7 +11,9 @@ export default function AppLayout() {
         <Outlet />
       </main>
       <Footer />
+      <WelcomeModal />
     </div>
   );
 }
+
 

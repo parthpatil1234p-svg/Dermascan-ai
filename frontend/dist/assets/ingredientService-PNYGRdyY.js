@@ -1,1 +1,0 @@
-import{N as n}from"./index-C71cZeBV.js";async function a(e={}){return(await n.get("/ingredients",{params:e})).data}async function r(e){return(await n.get(`/ingredients/${encodeURIComponent(e)}`)).data}export{r as a,a as g};
