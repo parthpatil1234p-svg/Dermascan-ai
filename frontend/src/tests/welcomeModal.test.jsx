@@ -43,9 +43,11 @@ describe("WelcomeModal component", () => {
       )
     ).toBeInTheDocument();
 
-    // Developer details verification
+    // Developer / Team details verification
     expect(screen.getByText(/Parth Patil/i)).toBeInTheDocument();
     expect(screen.getByText(/25110042/i)).toBeInTheDocument();
+    expect(screen.getByText(/Suyog Pawar/i)).toBeInTheDocument();
+    expect(screen.getByText(/25110045/i)).toBeInTheDocument();
     expect(screen.getAllByText(/DermaScan AI/i).length).toBeGreaterThan(0);
   });
 

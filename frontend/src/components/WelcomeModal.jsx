@@ -145,24 +145,26 @@ export default function WelcomeModal() {
             </ul>
           </div>
 
-          {/* Developer / Student Information */}
+          {/* Developer / Project Team Information */}
           <div className="rounded-xl border border-brand-200 bg-gradient-to-br from-brand-50/60 to-clinic-50/60 p-4 text-xs sm:text-sm">
-            <h4 className="flex items-center gap-2 font-semibold text-brand-900">
-              <GraduationCap className="h-4 w-4 text-brand-700" aria-hidden="true" />
-              Academic Project Information
-            </h4>
-            <div className="mt-2.5 grid grid-cols-1 gap-2 text-slate-700 sm:grid-cols-3">
-              <div className="flex items-center gap-2">
-                <User className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
-                <span>
-                  <strong className="text-slate-900">Developed by:</strong> Parth Patil
-                </span>
-              </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <strong className="text-slate-900">Roll No.:</strong> 25110042
+                <h4 className="flex items-center gap-2 font-semibold text-brand-900">
+                  <User className="h-4 w-4 text-brand-700" aria-hidden="true" />
+                  Developed by:
+                </h4>
+                <ul className="mt-1.5 space-y-1 text-slate-700">
+                  <li>
+                    <strong className="font-semibold text-slate-900">Parth Patil</strong> — Roll No. 25110042
+                  </li>
+                  <li>
+                    <strong className="font-semibold text-slate-900">Suyog Pawar</strong> — Roll No. 25110045
+                  </li>
+                </ul>
               </div>
-              <div>
-                <strong className="text-slate-900">Project:</strong> DermaScan AI
+              <div className="border-t border-brand-200/60 pt-2 sm:border-t-0 sm:pt-0 sm:text-right">
+                <span className="block text-xs text-slate-500">Project</span>
+                <strong className="text-sm font-bold text-brand-900 sm:text-base">DermaScan AI</strong>
               </div>
             </div>
           </div>
