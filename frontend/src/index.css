@@ -38,8 +38,21 @@ body {
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
+.dark-glass {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .gradient-text {
   background: linear-gradient(135deg, #0f172a 0%, #0f6470 50%, #0d9488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-glow {
+  background: linear-gradient(135deg, #38bdf8 0%, #2dd4bf 50%, #a78bfa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -50,5 +63,69 @@ body {
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 35px -10px rgba(15, 100, 112, 0.12);
+  box-shadow: 0 20px 35px -10px rgba(15, 100, 112, 0.15);
+}
+
+/* 3D & Holographic Keyframe Animations */
+@keyframes laserSweep {
+  0% { top: 0%; opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { top: 97%; opacity: 0.8; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(12px) rotate(-1deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(1.08); }
+}
+
+.animate-laser {
+  animation: laserSweep 3.2s ease-in-out infinite alternate;
+}
+
+.animate-float-slow {
+  animation: floatSlow 5.5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 6.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.glow-teal {
+  box-shadow: 0 0 50px -10px rgba(20, 184, 166, 0.35);
+}
+
+.glow-brand {
+  box-shadow: 0 0 60px -15px rgba(15, 100, 112, 0.4);
+}
+
+.grid-bg {
+  background-image: radial-gradient(rgba(15, 100, 112, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark-grid-bg {
+  background-image: radial-gradient(rgba(45, 212, 191, 0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
