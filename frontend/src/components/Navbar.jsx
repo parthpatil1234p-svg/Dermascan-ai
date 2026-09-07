@@ -1,4 +1,4 @@
-import { LogOut, Menu, ScanFace, UserCircle, X } from "lucide-react";
+import { Activity, FlaskConical, LogOut, Menu, ScanFace, Sparkles, UserCircle, X } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { APP_NAME, ROUTES } from "../constants/appContent";
@@ -7,8 +7,9 @@ import { useSkinProfile } from "../context/SkinProfileContext";
 
 const baseLinks = [
   { label: "Home", to: ROUTES.home },
-  { label: "How It Works", to: "/#how-it-works", anchor: true },
+  { label: "AI Ingredients", to: ROUTES.ingredientChecker, icon: FlaskConical },
   { label: "Catalogue", to: ROUTES.products },
+  { label: "How It Works", to: "/#how-it-works", anchor: true },
 ];
 
 export default function Navbar() {
@@ -18,10 +19,10 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const linkClasses = ({ isActive }) =>
-    `rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 ${
+    `relative flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
       isActive
-        ? "bg-brand-50 text-brand-700"
-        : "text-slate-700 hover:bg-slate-100 hover:text-brand-700"
+        ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+        : "text-slate-300 hover:bg-slate-800/60 hover:text-white"
     }`;
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -33,14 +34,16 @@ export default function Navbar() {
   };
 
   const renderLink = (link) => {
+    const Icon = link.icon;
     if (link.anchor) {
       return (
         <a
           key={link.label}
           href={link.to}
           onClick={closeMenu}
-          className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+          className="flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 transition-all duration-200 hover:bg-slate-800/60 hover:text-white"
         >
+          {Icon ? <Icon className="h-3.5 w-3.5 text-emerald-400" /> : null}
           {link.label}
         </a>
       );
@@ -53,6 +56,7 @@ export default function Navbar() {
         onClick={closeMenu}
         className={linkClasses}
       >
+        {Icon ? <Icon className="h-3.5 w-3.5 text-emerald-400" /> : null}
         {link.label}
       </NavLink>
     );
@@ -60,9 +64,9 @@ export default function Navbar() {
 
   const authLinks = isAuthenticated
     ? [
-        { label: "Start Analysis", to: ROUTES.faceScan },
+        { label: "Start Scan", to: ROUTES.faceScan },
         {
-          label: hasProfile ? "Edit Profile" : "Skin Profile",
+          label: hasProfile ? "Skin Profile" : "Profile",
           to: ROUTES.skinProfile,
         },
         { label: "Reports", to: ROUTES.reports },
@@ -77,88 +81,111 @@ export default function Navbar() {
   const navLinks = [...baseLinks, ...authLinks];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-md transition-all">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand-700 focus:shadow-lg"
-      >
-        Skip to main content
-      </a>
-      <nav
-        className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8"
-        aria-label="Main navigation"
-      >
-        <Link
-          to="/"
-          className="group flex items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
-          onClick={closeMenu}
+    <header className="sticky top-0 z-50 px-3 py-3 sm:px-6">
+      <div className="mx-auto max-w-7xl rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl shadow-slate-950/60 transition-all">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-emerald-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950 focus:shadow-lg"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-brand-700 to-teal-500 text-white shadow-md shadow-brand-500/20 transition-transform duration-300 group-hover:scale-105">
-            <ScanFace aria-hidden="true" className="h-5 w-5" />
-          </span>
-          <span className="text-lg font-extrabold tracking-tight text-slate-900 group-hover:text-brand-700 transition">
-            {APP_NAME}
-          </span>
-        </Link>
-
-        <div className="hidden items-center gap-1.5 lg:flex">
-          {navLinks.map(renderLink)}
-          {isAuthenticated ? (
-            <>
-              <span className="ml-2 inline-flex items-center gap-2 rounded-xl bg-brand-50/80 px-3 py-1.5 text-xs font-bold text-brand-800 border border-brand-100">
-                <UserCircle aria-hidden="true" className="h-4 w-4 text-brand-600" />
-                {user?.full_name || "Account"}
+          Skip to main content
+        </a>
+        <nav
+          className="flex items-center justify-between px-4 py-2.5 sm:px-6"
+          aria-label="Main navigation"
+        >
+          {/* Logo with 3D Holographic Glow */}
+          <Link
+            to="/"
+            className="group flex items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+            onClick={closeMenu}
+          >
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-400 text-slate-950 shadow-lg shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+              <ScanFace aria-hidden="true" className="h-5 w-5" />
+              <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-base font-black tracking-tight text-white group-hover:text-emerald-400 transition">
+                {APP_NAME}
               </span>
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-red-50 hover:text-red-700"
-              >
-                <LogOut aria-hidden="true" className="h-3.5 w-3.5" />
-                Logout
-              </button>
-            </>
-          ) : null}
-        </div>
+              <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Gemini 3D Vision AI
+              </span>
+            </div>
+          </Link>
 
-        <button
-          type="button"
-          aria-label="Toggle navigation menu"
-          aria-expanded={isMenuOpen}
-          onClick={() => setIsMenuOpen((current) => !current)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-xs transition hover:border-brand-500 hover:text-brand-700 lg:hidden"
-        >
-          {isMenuOpen ? (
-            <X aria-hidden="true" className="h-5 w-5" />
-          ) : (
-            <Menu aria-hidden="true" className="h-5 w-5" />
-          )}
-        </button>
-      </nav>
-
-      {isMenuOpen ? (
-        <div className="border-t border-slate-200 bg-white px-4 py-4 shadow-sm lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2">
+          {/* Desktop Nav Links */}
+          <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map(renderLink)}
+
             {isAuthenticated ? (
-              <>
-                <div className="flex items-center gap-2 rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700">
-                  <UserCircle aria-hidden="true" className="h-4 w-4" />
+              <div className="ml-3 flex items-center gap-2 border-l border-slate-700/60 pl-3">
+                <span className="inline-flex items-center gap-1.5 rounded-xl bg-slate-800/80 px-3 py-1.5 text-xs font-bold text-slate-200 border border-slate-700">
+                  <UserCircle aria-hidden="true" className="h-4 w-4 text-emerald-400" />
                   {user?.full_name || "Account"}
-                </div>
+                </span>
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+                  className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 transition"
+                  title="Logout"
                 >
-                  <LogOut aria-hidden="true" className="h-4 w-4" />
-                  Logout
+                  <LogOut aria-hidden="true" className="h-3.5 w-3.5" />
                 </button>
-              </>
-            ) : null}
+              </div>
+            ) : (
+              <Link
+                to={ROUTES.skinProfile}
+                className="ml-2 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 px-4 py-2 text-xs font-extrabold text-slate-950 shadow-md shadow-emerald-500/20 hover:scale-105 hover:shadow-emerald-500/40 transition-all duration-200"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>Launch Scan</span>
+              </Link>
+            )}
           </div>
-        </div>
-      ) : null}
+
+          {/* Mobile Menu Hamburger */}
+          <button
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((current) => !current)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-slate-800/80 text-slate-300 shadow-xs transition hover:border-emerald-500/50 hover:text-white lg:hidden"
+          >
+            {isMenuOpen ? (
+              <X aria-hidden="true" className="h-5 w-5" />
+            ) : (
+              <Menu aria-hidden="true" className="h-5 w-5" />
+            )}
+          </button>
+        </nav>
+
+        {/* Mobile Dropdown Menu */}
+        {isMenuOpen ? (
+          <div className="border-t border-white/10 bg-slate-900/95 px-4 py-4 backdrop-blur-2xl rounded-b-2xl lg:hidden">
+            <div className="flex flex-col gap-1.5">
+              {navLinks.map(renderLink)}
+              {isAuthenticated ? (
+                <div className="mt-3 flex items-center justify-between border-t border-slate-800 pt-3">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+                    <UserCircle aria-hidden="true" className="h-4 w-4 text-emerald-400" />
+                    {user?.full_name || "Account"}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="inline-flex items-center gap-1 rounded-lg bg-rose-500/10 px-3 py-1.5 text-xs font-semibold text-rose-400"
+                  >
+                    <LogOut aria-hidden="true" className="h-3.5 w-3.5" />
+                    Logout
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+      </div>
     </header>
   );
 }
+
