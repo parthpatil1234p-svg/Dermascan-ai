@@ -115,6 +115,10 @@ def create_app(enable_lifespan: bool = True) -> FastAPI:
     async def root_check() -> dict[str, str]:
         return {"status": "ok", "service": settings.service_name, "message": "Backend is running"}
 
+    @app.get("/health", tags=["health"])
+    async def health_simple_check() -> dict[str, str]:
+        return {"status": "ok"}
+
     @app.get(f"{settings.api_prefix}/health", tags=["health"])
     async def health_check() -> dict[str, object]:
         return {
