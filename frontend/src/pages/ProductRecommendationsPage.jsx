@@ -237,8 +237,19 @@ export default function ProductRecommendationsPage() {
       <section className="px-4 py-14 sm:px-6 lg:px-8">
         <PageHeader eyebrow="No qualifying catalogue options" title="No Sufficiently Relevant Products Were Found" description="The configured relevance threshold and all Step 11 safety exclusions were preserved." />
         <div className="mx-auto max-w-4xl space-y-7">
-          <div className="flex items-start gap-4 border-y border-amber-200 bg-amber-50 px-4 py-7"><CircleHelp className="mt-0.5 h-6 w-6 shrink-0 text-amber-700" aria-hidden="true" /><div><h2 className="font-semibold text-slate-950">No safety threshold was lowered</h2><p className="mt-2 text-sm leading-6 text-slate-700">Review your non-allergy preferences, budget range, or catalogue coverage. Do not remove known allergy constraints merely to create a result.</p></div></div>
-          <div className="grid gap-3 sm:grid-cols-3"><SecondaryButton to={ROUTES.skinProfile}>Review Skin Profile</SecondaryButton><SecondaryButton to={ROUTES.productEligibility}>Review Eligibility</SecondaryButton><SecondaryButton to={ROUTES.productDiscovery}>Browse Catalogue</SecondaryButton></div>
+          <div className="flex items-start gap-4 rounded-xl border border-amber-200 bg-amber-50 p-6">
+            <CircleHelp className="mt-0.5 h-6 w-6 shrink-0 text-amber-700" aria-hidden="true" />
+            <div>
+              <h2 className="font-semibold text-slate-950">No products matched your exact budget or allergy filters</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">
+                You can widen your budget range or non-allergy preferences in your profile, or continue directly to generate your personalized AI Skincare Routine and Final Report.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+            <SecondaryButton to={ROUTES.skinProfile}>Edit Skin Profile (Adjust Budget)</SecondaryButton>
+            <PrimaryButton to={ROUTES.skincareRoutine}>Continue to Skincare Routine</PrimaryButton>
+          </div>
           <DisclaimerBox title="No recommendation is safer than an unsupported recommendation" />
         </div>
       </section>
