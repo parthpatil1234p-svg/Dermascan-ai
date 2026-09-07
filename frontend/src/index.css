@@ -13,7 +13,7 @@
 
 :root {
   color: #0f172a;
-  background: #f5fbff;
+  background: #f8fafc;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -30,14 +30,25 @@ body {
   min-height: 100vh;
 }
 
-button,
-a,
-input,
-select,
-textarea {
-  letter-spacing: 0;
+/* Modern UI Enhancements */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-textarea {
-  resize: vertical;
+.gradient-text {
+  background: linear-gradient(135deg, #0f172a 0%, #0f6470 50%, #0d9488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px -10px rgba(15, 100, 112, 0.12);
 }

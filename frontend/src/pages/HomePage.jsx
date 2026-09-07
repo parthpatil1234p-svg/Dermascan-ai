@@ -44,48 +44,78 @@ const benefitIcons = [
 
 export default function HomePage() {
   return (
-    <div className="bg-clinic-50">
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.92fr] lg:px-8 lg:py-20">
+    <div className="bg-slate-50/50">
+      {/* Modern Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-brand-50/30 to-slate-50 py-16 sm:py-24">
+        {/* Subtle decorative background blur shapes */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-teal-200/30 blur-3xl" />
+        <div className="pointer-events-none absolute top-1/3 -right-24 -z-10 h-72 w-72 rounded-full bg-brand-200/20 blur-2xl" />
+
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
           <div>
-            <p className="inline-flex rounded-full bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700">
-              DermaScan AI college mini-project
-            </p>
-            <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-slate-950 sm:text-5xl">
-              Understand Your Skin with AI-Powered Analysis
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-3.5 py-1.5 text-xs font-bold text-teal-800 shadow-xs backdrop-blur-sm">
+              <Sparkles className="h-3.5 w-3.5 text-amber-500 animate-pulse" />
+              <span>Google Gemini AI Vision Powered</span>
+            </div>
+
+            <h1 className="mt-6 max-w-2xl text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+              Understand Your Skin with{" "}
+              <span className="gradient-text">AI-Powered Analysis</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Upload or capture a clear facial image to receive an AI-assisted
+
+            <p className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
+              Upload or capture a clear facial image to receive real-time AI-assisted
               skin-type analysis, visible skin observations, personalized
-              product recommendations, and a simple skincare routine.
+              product recommendations, and a customized routine.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryButton to={ROUTES.skinProfile} icon={ScanFace}>
-                Start Skin Analysis
+
+            <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
+              <PrimaryButton to={ROUTES.skinProfile} icon={ScanFace} className="shadow-lg shadow-brand-700/20">
+                Start Free Skin Analysis
               </PrimaryButton>
-              <SecondaryButton to="/#how-it-works" icon={ArrowRight}>
-                Learn How It Works
+              <SecondaryButton to={ROUTES.ingredientChecker} icon={FlaskConical}>
+                AI Ingredient Checker
               </SecondaryButton>
+            </div>
+
+            {/* Quick feature highlights */}
+            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-slate-200/80 pt-6 text-center sm:text-left">
+              <div>
+                <p className="text-xl sm:text-2xl font-black text-brand-700">100%</p>
+                <p className="text-xs text-slate-500 mt-0.5">Free & Instant</p>
+              </div>
+              <div>
+                <p className="text-xl sm:text-2xl font-black text-brand-700">AI 24/7</p>
+                <p className="text-xs text-slate-500 mt-0.5">Gemini Vision</p>
+              </div>
+              <div>
+                <p className="text-xl sm:text-2xl font-black text-brand-700">Private</p>
+                <p className="text-xs text-slate-500 mt-0.5">Secure Storage</p>
+              </div>
             </div>
           </div>
 
           <div className="relative">
-            <img
-              src={heroImage}
-              alt="AI-assisted skin analysis interface showing a facial scan and skincare data panels"
-              className="aspect-[4/3] w-full rounded-lg border border-slate-200 object-cover shadow-soft"
-            />
-            <div className="absolute bottom-4 left-4 right-4 rounded-lg border border-white/60 bg-white/90 p-4 shadow-sm backdrop-blur">
+            <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-2 shadow-xl shadow-slate-900/5">
+              <img
+                src={heroImage}
+                alt="AI-assisted skin analysis interface showing a facial scan and skincare data panels"
+                className="aspect-[4/3] w-full rounded-xl object-cover"
+              />
+            </div>
+
+            {/* Floating Glassmorphic Badge */}
+            <div className="absolute -bottom-5 left-4 right-4 rounded-xl border border-white/80 bg-white/90 p-4 shadow-lg backdrop-blur-md transition-transform hover:scale-[1.02] sm:left-6 sm:right-6">
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-leaf-100 text-leaf-700">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-leaf-100 text-leaf-700 shadow-xs">
                   <Leaf aria-hidden="true" className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-slate-950">
-                    Guidance only, not diagnosis
+                  <p className="text-xs sm:text-sm font-bold text-slate-900">
+                    Safe Skincare Guidance
                   </p>
-                  <p className="text-sm text-slate-600">
-                    Designed for safe skincare education and demonstrations.
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Designed for smart skincare decision support and education.
                   </p>
                 </div>
               </div>
