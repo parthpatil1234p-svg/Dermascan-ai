@@ -16,6 +16,7 @@ const ProductsPage = lazy(() => import("../pages/ProductsPage"));
 const ProductDetailPage = lazy(() => import("../pages/ProductDetailPage"));
 const IngredientsPage = lazy(() => import("../pages/IngredientsPage"));
 const IngredientDetailPage = lazy(() => import("../pages/IngredientDetailPage"));
+const IngredientCheckerPage = lazy(() => import("../pages/IngredientCheckerPage"));
 const ProductEligibilityPage = lazy(() => import("../pages/ProductEligibilityPage"));
 const ProductRecommendationsPage = lazy(() => import("../pages/ProductRecommendationsPage"));
 const SkincareRoutinePage = lazy(() => import("../pages/SkincareRoutinePage"));
@@ -30,6 +31,10 @@ export const routeConfig = [
   {
     path: "/",
     component: HomePage,
+  },
+  {
+    path: "/ingredient-checker",
+    component: IngredientCheckerPage,
   },
   {
     path: "/login",

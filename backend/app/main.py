@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes import (
+    ai_assistant,
     auth,
     brands,
     face_detection,
@@ -139,6 +140,7 @@ def create_app(enable_lifespan: bool = True) -> FastAPI:
             content=report,
         )
 
+    app.include_router(ai_assistant.router, prefix=settings.api_prefix)
     app.include_router(auth.router, prefix=settings.api_prefix)
     app.include_router(users.router, prefix=settings.api_prefix)
     app.include_router(skin_profiles.router, prefix=settings.api_prefix)

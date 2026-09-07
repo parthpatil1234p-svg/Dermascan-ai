@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import WelcomeModal from "../components/WelcomeModal";
+import AIChatWidget from "../components/AIChatWidget";
 
 export default function AppLayout() {
   return (
@@ -12,6 +13,7 @@ export default function AppLayout() {
       </main>
       <Footer />
       <WelcomeModal />
+      <AIChatWidget />
     </div>
   );
 }

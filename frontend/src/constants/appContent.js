@@ -24,6 +24,7 @@ export const ROUTES = {
   productDiscovery: "/product-discovery",
   products: "/products",
   ingredients: "/ingredients",
+  ingredientChecker: "/ingredient-checker",
   analysisLoading: "/analysis-loading",
   results: "/results",
   reports: "/reports",
@@ -33,8 +34,8 @@ export const ROUTES = {
 
 export const NAV_LINKS = [
   { label: "Home", to: ROUTES.home },
+  { label: "AI Ingredient Checker", to: ROUTES.ingredientChecker },
   { label: "How It Works", to: "/#how-it-works", anchor: true },
-  { label: "Benefits", to: "/#benefits", anchor: true },
   { label: "Start Analysis", to: ROUTES.skinProfile },
   { label: "Login", to: ROUTES.login },
   { label: "Register", to: ROUTES.register },
