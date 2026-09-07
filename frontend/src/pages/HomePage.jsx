@@ -13,7 +13,7 @@ import {
   Wallet,
 } from "lucide-react";
 import BenefitCard from "../components/BenefitCard";
-import DisclaimerBox from "../components/DisclaimerBox";
+import DisclaimerBox, { AdBanner } from "../components/DisclaimerBox";
 import FeatureCard from "../components/FeatureCard";
 import PrimaryButton from "../components/PrimaryButton";
 import SecondaryButton from "../components/SecondaryButton";
@@ -124,6 +124,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <AdBanner />
+      </div>
+
       <section id="benefits" className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -191,6 +195,7 @@ export default function HomePage() {
 
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <AdBanner className="mb-8" />
           <DisclaimerBox />
           <div className="mt-8 rounded-lg border border-slate-200 bg-clinic-50 p-8 text-center shadow-sm">
             <h2 className="text-2xl font-bold text-slate-950">
