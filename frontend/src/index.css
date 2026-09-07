@@ -76,40 +76,180 @@
     border-color: rgba(255, 255, 255, 0.15) !important;
   }
 
-  /* Alert & Medical Disclaimers readability */
-  .bg-red-50 {
-    background-color: rgba(69, 10, 10, 0.5) !important;
-    border-color: rgba(239, 68, 68, 0.4) !important;
-    color: #fecaca !important;
-  }
-  .text-red-950 {
-    color: #fee2e2 !important;
+  /* =========================================================
+     DARK-GLASS STATUS BANNERS & BADGES (100% CONTRAST)
+     ========================================================= */
+
+  /* Success / Leaf / Emerald / Green banners & cards */
+  .bg-leaf-50,
+  .bg-leaf-100,
+  .bg-leaf-200,
+  .bg-emerald-50,
+  .bg-emerald-100,
+  .bg-green-50,
+  .bg-green-100,
+  .bg-teal-50,
+  .bg-teal-100 {
+    background-color: rgba(6, 78, 59, 0.45) !important;
+    border-color: rgba(16, 185, 129, 0.35) !important;
+    color: #a7f3d0 !important;
+    backdrop-filter: blur(12px);
   }
 
+  .text-leaf-950,
+  .text-leaf-900,
+  .text-leaf-800,
+  .text-leaf-700,
+  .text-leaf-600 {
+    color: #6ee7b7 !important;
+  }
+
+  .border-leaf-100,
+  .border-leaf-200,
+  .border-leaf-300 {
+    border-color: rgba(16, 185, 129, 0.35) !important;
+  }
+
+  /* Warning / Amber / Yellow banners & cards */
   .bg-amber-50,
-  .bg-amber-100 {
+  .bg-amber-100,
+  .bg-amber-200,
+  .bg-yellow-50,
+  .bg-yellow-100 {
     background-color: rgba(69, 26, 3, 0.5) !important;
     border-color: rgba(245, 158, 11, 0.4) !important;
     color: #fef08a !important;
-  }
-  .text-amber-900,
-  .text-amber-950 {
-    color: #fef08a !important;
+    backdrop-filter: blur(12px);
   }
 
+  .text-amber-950,
+  .text-amber-900,
+  .text-amber-800,
+  .text-amber-700 {
+    color: #fcd34d !important;
+  }
+
+  .border-amber-100,
+  .border-amber-200,
+  .border-amber-300 {
+    border-color: rgba(245, 158, 11, 0.35) !important;
+  }
+
+  /* Danger / Error / Red / Rose banners & cards */
+  .bg-red-50,
+  .bg-red-100,
+  .bg-red-200,
+  .bg-rose-50,
+  .bg-rose-100 {
+    background-color: rgba(69, 10, 10, 0.5) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #fecaca !important;
+    backdrop-filter: blur(12px);
+  }
+
+  .text-red-950,
+  .text-red-900,
+  .text-red-800,
+  .text-red-700 {
+    color: #fca5a5 !important;
+  }
+
+  .border-red-100,
+  .border-red-200,
+  .border-red-300 {
+    border-color: rgba(239, 68, 68, 0.35) !important;
+  }
+
+  /* Brand & Clinic / Cyan / Sky / Blue banners & cards */
   .bg-brand-50,
   .bg-brand-100,
   .bg-clinic-50,
-  .bg-clinic-100 {
-    background-color: rgba(6, 78, 59, 0.5) !important;
-    border-color: rgba(16, 185, 129, 0.4) !important;
+  .bg-clinic-100,
+  .bg-cyan-50,
+  .bg-cyan-100,
+  .bg-sky-50,
+  .bg-sky-100,
+  .bg-blue-50,
+  .bg-blue-100 {
+    background-color: rgba(15, 76, 92, 0.45) !important;
+    border-color: rgba(45, 212, 191, 0.35) !important;
+    color: #99f6e4 !important;
+    backdrop-filter: blur(12px);
+  }
+
+  .text-brand-950,
+  .text-brand-900,
+  .text-brand-800,
+  .text-brand-700,
+  .text-clinic-950,
+  .text-clinic-900,
+  .text-clinic-800,
+  .text-clinic-700 {
+    color: #5eead4 !important;
+  }
+
+  .border-brand-100,
+  .border-brand-200,
+  .border-clinic-100,
+  .border-clinic-200 {
+    border-color: rgba(45, 212, 191, 0.35) !important;
+  }
+
+  /* Details summaries & technical dropdowns */
+  details summary {
+    color: #2dd4bf !important;
+  }
+
+  /* Ensure paragraphs, spans, and headings inside status banners are perfectly visible */
+  .bg-leaf-50 p,
+  .bg-leaf-100 p,
+  .bg-leaf-200 p,
+  .bg-leaf-50 span,
+  .bg-leaf-100 span,
+  .bg-leaf-50 h2,
+  .bg-leaf-50 h3,
+  .bg-leaf-100 h2,
+  .bg-leaf-100 h3 {
     color: #a7f3d0 !important;
   }
-  .text-brand-900,
-  .text-brand-950,
-  .text-brand-800,
-  .text-brand-700 {
-    color: #34d399 !important;
+
+  .bg-amber-50 p,
+  .bg-amber-100 p,
+  .bg-amber-200 p,
+  .bg-amber-50 span,
+  .bg-amber-100 span,
+  .bg-amber-50 h2,
+  .bg-amber-50 h3,
+  .bg-amber-100 h2,
+  .bg-amber-100 h3 {
+    color: #fef08a !important;
+  }
+
+  .bg-red-50 p,
+  .bg-red-100 p,
+  .bg-red-200 p,
+  .bg-red-50 span,
+  .bg-red-100 span,
+  .bg-red-50 h2,
+  .bg-red-50 h3,
+  .bg-red-100 h2,
+  .bg-red-100 h3 {
+    color: #fecaca !important;
+  }
+
+  .bg-clinic-50 p,
+  .bg-clinic-100 p,
+  .bg-clinic-50 span,
+  .bg-clinic-100 span,
+  .bg-clinic-50 h2,
+  .bg-clinic-50 h3,
+  .bg-brand-50 p,
+  .bg-brand-100 p,
+  .bg-brand-50 span,
+  .bg-brand-100 span,
+  .bg-brand-50 h2,
+  .bg-brand-50 h3 {
+    color: #99f6e4 !important;
   }
 }
 
