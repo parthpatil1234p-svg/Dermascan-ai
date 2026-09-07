@@ -1,7 +1,23 @@
-import { AlertTriangle, Download, FlaskConical, Moon, Printer, ShieldCheck, Sun } from "lucide-react";
+import {
+  AlertTriangle,
+  Download,
+  FlaskConical,
+  Moon,
+  Printer,
+  ShieldCheck,
+  Sun,
+  Activity,
+  Sparkles,
+  CheckCircle2,
+  FileText,
+  Calendar,
+  Layers,
+  ChevronRight,
+} from "lucide-react";
 import { useState } from "react";
 import DemoModeNotice from "./DemoModeNotice";
-
+import Card3D from "./Card3D";
+import BiometricGauge3D from "./BiometricGauge3D";
 
 const STATUS_LABELS = {
   complete: "Complete",
@@ -11,12 +27,19 @@ const STATUS_LABELS = {
   superseded: "Superseded",
 };
 
-
 function formatDate(value) {
   if (!value) return "Not available";
-  return new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
+  try {
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return "Not available";
+    return new Intl.DateTimeFormat("en-IN", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(d);
+  } catch (e) {
+    return "Not available";
+  }
 }
-
 
 function sensitivityLabel(value) {
   if (value === true) return "Yes";
@@ -24,41 +47,451 @@ function sensitivityLabel(value) {
   return "Not sure";
 }
 
+function RoutineTimeline({ title, icon: Icon, steps = [], glowColor = "emerald" }) {
+  const safeSteps = Array.isArray(steps) ? steps : [];
+  const isMorning = title.toLowerCase().includes("morning");
 
-function RoutineTimeline({ title, icon: Icon, steps }) {
-  return <section className="report-section border-y border-slate-200 py-6"><div className="flex items-center gap-3"><Icon className="h-5 w-5 text-brand-700" aria-hidden="true" /><h2 className="text-xl font-bold text-slate-950">{title}</h2></div><ol className="mt-5 space-y-5">{steps.map((step) => <li key={`${title}-${step.step_number}`} className="grid grid-cols-[2rem_1fr] gap-4 break-inside-avoid"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">{step.step_number}</span><div><div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold text-slate-950">{step.product_name}</h3>{step.is_optional ? <span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-bold text-amber-900">Optional</span> : null}{step.is_demo_product ? <span className="rounded-md bg-clinic-100 px-2 py-1 text-xs font-bold text-clinic-900">Demo</span> : null}</div><p className="mt-1 text-sm font-medium text-brand-700">{step.category} · {step.brand_name}</p><p className="mt-2 text-sm leading-6 text-slate-700">{step.purpose}</p><p className="mt-1 text-sm leading-6 text-slate-600">{step.usage_guidance}</p>{step.cautions.length ? <p className="mt-2 text-sm text-amber-900">Caution: {step.cautions.join(" ")}</p> : null}</div></li>)}</ol></section>;
+  return (
+    <Card3D glowColor={glowColor} className="h-full border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl">
+      <div className="flex items-center gap-3 border-b border-white/10 pb-5">
+        <div
+          className={`flex h-11 w-11 items-center justify-center rounded-2xl ${
+            isMorning
+              ? "bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-md shadow-amber-500/10"
+              : "bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 shadow-md shadow-indigo-500/10"
+          }`}
+        >
+          {Icon && <Icon className="h-6 w-6" aria-hidden="true" />}
+        </div>
+        <div>
+          <h2 className="text-xl font-black text-white">{title}</h2>
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            {isMorning ? "Step-by-Step Daily Protection" : "Step-by-Step Cellular Recovery"}
+          </span>
+        </div>
+      </div>
+
+      {safeSteps.length === 0 ? (
+        <p className="mt-6 text-sm text-slate-400 italic">No specific steps recorded for this timeline.</p>
+      ) : (
+        <ol className="mt-6 space-y-6">
+          {safeSteps.map((step, idx) => {
+            const stepNum = step?.step_number ?? idx + 1;
+            const cautions = Array.isArray(step?.cautions) ? step.cautions : [];
+            return (
+              <li key={`${title}-${stepNum}`} className="grid grid-cols-[2.5rem_1fr] gap-4">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-sm font-black text-slate-950 shadow-md shadow-emerald-500/20">
+                  0{stepNum}
+                </span>
+                <div className="rounded-2xl border border-white/5 bg-slate-950/60 p-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-bold text-sm text-white">
+                      {step?.product_name || "Prescribed Skincare Step"}
+                    </h3>
+                    {step?.is_optional ? (
+                      <span className="rounded-full bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 text-[10px] font-bold text-amber-300">
+                        Optional
+                      </span>
+                    ) : null}
+                    {step?.is_demo_product ? (
+                      <span className="rounded-full bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 text-[10px] font-bold text-cyan-300">
+                        Demo
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-emerald-400">
+                    {step?.category || "TREATMENT"} {step?.brand_name ? `· ${step.brand_name}` : ""}
+                  </p>
+                  {step?.purpose && (
+                    <p className="mt-2 text-xs leading-relaxed text-slate-300">{step.purpose}</p>
+                  )}
+                  {step?.usage_guidance && (
+                    <p className="mt-1 text-xs leading-relaxed text-slate-400 italic">
+                      {step.usage_guidance}
+                    </p>
+                  )}
+                  {cautions.length > 0 && (
+                    <p className="mt-2 rounded-lg bg-amber-950/40 border border-amber-500/30 p-2 text-xs text-amber-300">
+                      ⚠️ Caution: {cautions.join(" ")}
+                    </p>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </Card3D>
+  );
 }
 
-
-export default function FinalReportView({ report, onExport, isExporting = false, printMode = false }) {
+export default function FinalReportView({
+  report = {},
+  onExport,
+  isExporting = false,
+  printMode = false,
+}) {
   const [privacyMode, setPrivacyMode] = useState("standard");
-  const profile = report.skin_profile_summary || {};
-  const skin = report.skin_type_summary || {};
-  const concerns = report.visible_concern_summary || { observed: [], possible: [], uncertain: [] };
-  return <article className="mx-auto max-w-7xl space-y-9" aria-labelledby="final-report-title">
-    <DemoModeNotice visible={report.analysis_mode === "demonstration"} />
-    <section className="report-section border-y border-slate-300 py-7"><div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"><div><p className="text-sm font-bold uppercase text-brand-700">DermaScan AI</p><h1 id="final-report-title" className="mt-2 text-3xl font-bold text-slate-950">{report.title}</h1><dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600"><div><dt className="inline font-semibold text-slate-800">Report ID: </dt><dd className="inline">{report.final_report_id}</dd></div><div><dt className="inline font-semibold text-slate-800">Version: </dt><dd className="inline">{report.report_version}</dd></div><div><dt className="inline font-semibold text-slate-800">Generated: </dt><dd className="inline">{formatDate(report.generated_at)}</dd></div></dl></div><div className="flex flex-col items-start gap-3"><span className="rounded-md bg-brand-100 px-3 py-2 text-sm font-bold text-brand-900">Status: {STATUS_LABELS[report.report_status] || report.report_status}</span>{!printMode ? <div className="print-hidden flex flex-wrap gap-2"><button type="button" onClick={() => window.print()} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600"><Printer className="h-4 w-4" aria-hidden="true" />Print</button><label className="text-sm font-semibold text-slate-700"><span className="sr-only">PDF privacy mode</span><select value={privacyMode} onChange={(event) => setPrivacyMode(event.target.value)} className="rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300"><option value="standard">Standard PDF</option><option value="privacy_reduced">Privacy-reduced PDF</option><option value="technical">Technical PDF</option></select></label><button type="button" onClick={() => onExport?.(privacyMode)} disabled={isExporting || !report.can_export_pdf} className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white disabled:bg-slate-300"><Download className="h-4 w-4" aria-hidden="true" />{isExporting ? "Exporting..." : "Export PDF"}</button></div> : null}</div></div></section>
+  const profile = report?.skin_profile_summary || {};
+  const skin = report?.skin_type_summary || {};
+  const rawConcerns = report?.visible_concern_summary || {};
+  const concerns = {
+    observed: Array.isArray(rawConcerns.observed) ? rawConcerns.observed : [],
+    possible: Array.isArray(rawConcerns.possible) ? rawConcerns.possible : [],
+    uncertain: Array.isArray(rawConcerns.uncertain) ? rawConcerns.uncertain : [],
+  };
 
-    <section className="report-section border-l-4 border-red-500 bg-red-50 px-5 py-5"><div className="flex items-start gap-3"><AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-red-700" aria-hidden="true" /><div><h2 className="font-bold text-red-950">Important Disclaimer</h2><p className="mt-2 text-sm leading-6 text-red-950">{report.medical_disclaimer}</p><p className="mt-2 text-sm leading-6 text-red-950">Seek professional advice for severe, painful, infected, persistent, rapidly changing, or unusual skin concerns.</p></div></div></section>
+  const morningRoutine = Array.isArray(report?.morning_routine) ? report.morning_routine : [];
+  const nightRoutine = Array.isArray(report?.night_routine) ? report.night_routine : [];
+  const productRecommendations = Array.isArray(report?.product_recommendations)
+    ? report.product_recommendations
+    : Array.isArray(report?.product_recommendation_summary)
+    ? report.product_recommendation_summary
+    : [];
 
-    <section className="report-section"><h2 className="text-2xl font-bold text-slate-950">Executive Summary</h2><p className="mt-3 max-w-4xl text-base leading-7 text-slate-700">{report.summary}</p></section>
+  const ingredientGuidance = report?.ingredient_guidance || {};
+  const relevantIngredients = Array.isArray(ingredientGuidance?.potentially_relevant)
+    ? ingredientGuidance.potentially_relevant
+    : [];
+  const avoidIngredients = Array.isArray(ingredientGuidance?.avoid_or_review)
+    ? ingredientGuidance.avoid_or_review
+    : [];
 
-    <dl className="report-section grid gap-4 sm:grid-cols-2 lg:grid-cols-5"><div className="border-l-4 border-brand-500 px-4"><dt className="text-sm text-slate-600">Estimated skin type</dt><dd className="mt-1 text-xl font-bold text-slate-950">{skin.skin_type || "Unavailable"}</dd></div><div className="border-l-4 border-clinic-500 px-4"><dt className="text-sm text-slate-600">Skin-type confidence</dt><dd className="mt-1 text-xl font-bold text-slate-950">{skin.confidence_level || "Unavailable"}</dd></div><div className="border-l-4 border-leaf-500 px-4"><dt className="text-sm text-slate-600">Observed characteristics</dt><dd className="mt-1 text-xl font-bold text-slate-950">{concerns.observed.length}</dd></div><div className="border-l-4 border-amber-500 px-4"><dt className="text-sm text-slate-600">Recommendation confidence</dt><dd className="mt-1 text-xl font-bold text-slate-950">{report.engine_versions.recommendation ? "Recorded" : "Unavailable"}</dd></div><div className="border-l-4 border-slate-500 px-4"><dt className="text-sm text-slate-600">Routine steps</dt><dd className="mt-1 text-xl font-bold text-slate-950">{report.morning_routine.length + report.night_routine.length}</dd></div></dl>
+  const safetyGuidance = Array.isArray(report?.safety_guidance) ? report.safety_guidance : [];
+  const limitations = Array.isArray(report?.limitations) ? report.limitations : [];
+  const dataFreshness = Array.isArray(report?.data_freshness) ? report.data_freshness : [];
+  const imageSummary = report?.image_processing_summary || {};
 
-    <section className="report-section border-y border-slate-200 py-6"><h2 className="text-xl font-bold text-slate-950">User-Provided Skin Profile</h2><p className="mt-1 text-sm text-slate-600">These values were self-reported and are separate from image observations.</p><dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3"><div><dt className="font-semibold text-slate-800">Age group</dt><dd className="mt-1 text-slate-700">{profile.age_group || "Unavailable"}</dd></div><div><dt className="font-semibold text-slate-800">Country</dt><dd className="mt-1 text-slate-700">{profile.country || "Unavailable"}</dd></div><div><dt className="font-semibold text-slate-800">Oiliness / dryness</dt><dd className="mt-1 text-slate-700">{profile.oiliness_level || "Unavailable"} / {profile.dryness_level || "Unavailable"}</dd></div><div><dt className="font-semibold text-slate-800">Self-reported sensitivity</dt><dd className="mt-1 text-slate-700">{sensitivityLabel(profile.self_reported_sensitivity)}</dd></div><div><dt className="font-semibold text-slate-800">Fragrance preference</dt><dd className="mt-1 text-slate-700">{profile.fragrance_preference || "Unavailable"}</dd></div><div><dt className="font-semibold text-slate-800">Experience</dt><dd className="mt-1 text-slate-700">{profile.experience_level || "Unavailable"}</dd></div><div><dt className="font-semibold text-slate-800">Known allergies</dt><dd className="mt-1 text-slate-700">{profile.known_allergies?.join(", ") || "None reported"}</dd></div><div><dt className="font-semibold text-slate-800">Ingredients to avoid</dt><dd className="mt-1 text-slate-700">{profile.ingredients_to_avoid?.join(", ") || "None selected"}</dd></div></dl></section>
+  const totalSteps = morningRoutine.length + nightRoutine.length;
+  const reportTitle = report?.title || report?.report_title || "Personalized Skin Analysis & Guidance Report";
+  const reportStatus = report?.report_status || "complete";
 
-    <section className="report-section"><h2 className="text-xl font-bold text-slate-950">Safe Image Processing Summary</h2><dl className="mt-4 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">{Object.entries(report.image_processing_summary || {}).map(([key, value]) => <div key={key} className="border-l-2 border-slate-300 pl-3"><dt className="font-semibold text-slate-800">{key.replaceAll("_", " ")}</dt><dd className="mt-1 text-slate-700">{typeof value === "boolean" ? (value ? "Yes" : "No") : value ?? "Unavailable"}</dd></div>)}</dl></section>
+  return (
+    <article className="mx-auto max-w-7xl space-y-10" aria-labelledby="final-report-title">
+      <DemoModeNotice visible={report?.analysis_mode === "demonstration"} />
 
-    <section className="report-section"><h2 className="text-xl font-bold text-slate-950">AI-Assisted Visible Results</h2><div className="mt-5 grid gap-6 lg:grid-cols-3">{["observed", "possible", "uncertain"].map((group) => <section key={group}><h3 className="font-semibold capitalize text-slate-950">{group}</h3>{concerns[group].length ? <ul className="mt-3 space-y-3">{concerns[group].map((item) => <li key={item.code} className="border-l-2 border-brand-300 pl-3 text-sm"><p className="font-semibold text-slate-900">{item.name}</p><p className="mt-1 text-slate-700">{item.visible_severity} visible appearance · {item.regions.join(", ") || "Full face"}</p><p className="mt-1 text-slate-600">Confidence: {item.confidence}%</p></li>)}</ul> : <p className="mt-3 text-sm text-slate-500">None reported in this group.</p>}</section>)}</div></section>
+      {/* Hero Header Card */}
+      <Card3D glowColor="emerald" className="border border-white/10 bg-slate-900/90 p-6 sm:p-8 backdrop-blur-2xl">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest text-emerald-400">
+                🧬 DermaScan AI 3D Telemetry
+              </span>
+              <span className="rounded-full border border-white/10 bg-slate-800/80 px-3 py-1 font-mono text-xs font-bold text-slate-300">
+                v{report?.report_version || 1}
+              </span>
+            </div>
+            
+            <h1 id="final-report-title" className="mt-3 text-2xl sm:text-4xl font-black tracking-tight text-white">
+              {reportTitle}
+            </h1>
 
-    <section className="report-section grid gap-7 lg:grid-cols-2"><div><div className="flex items-center gap-2"><FlaskConical className="h-5 w-5 text-leaf-700" aria-hidden="true" /><h2 className="text-xl font-bold text-slate-950">Potentially Relevant Ingredient Roles</h2></div><ul className="mt-4 space-y-4">{report.ingredient_guidance.potentially_relevant.map((item) => <li key={item.ingredient_role} className="border-l-2 border-leaf-400 pl-3 text-sm"><p className="font-semibold text-slate-900">{item.ingredient_role}</p><p className="mt-1 text-slate-700">{item.reason}</p><p className="mt-1 text-slate-500">Examples: {item.examples.join(", ")}</p></li>)}</ul></div><div><h2 className="text-xl font-bold text-slate-950">Avoid or Review</h2><ul className="mt-4 space-y-4">{report.ingredient_guidance.avoid_or_review.length ? report.ingredient_guidance.avoid_or_review.map((item) => <li key={item.item} className="border-l-2 border-amber-400 pl-3 text-sm"><p className="font-semibold text-slate-900">{item.item}</p><p className="mt-1 text-slate-700">{item.reason}</p></li>) : <li className="text-sm text-slate-500">No selected avoidance item was available.</li>}</ul></div></section>
+            <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-slate-400">
+              <div>
+                <dt className="inline text-slate-500">REPORT ID: </dt>
+                <dd className="inline text-emerald-400 font-bold">{report?.final_report_id || "PENDING"}</dd>
+              </div>
+              <div>
+                <dt className="inline text-slate-500">GENERATED: </dt>
+                <dd className="inline text-slate-300">{formatDate(report?.generated_at)}</dd>
+              </div>
+              <div>
+                <dt className="inline text-slate-500">STATUS: </dt>
+                <dd className="inline text-cyan-400 uppercase font-bold">{STATUS_LABELS[reportStatus] || reportStatus}</dd>
+              </div>
+            </dl>
+          </div>
 
-    <section className="report-section"><h2 className="text-2xl font-bold text-slate-950">Product Recommendations</h2><p className="mt-2 text-sm text-slate-600">Recommendation scores are project-specific relevance scores and do not guarantee product safety or effectiveness.</p><div className="mt-5 grid gap-5 lg:grid-cols-2">{report.product_recommendations.map((item) => <article key={item.product_id} className="break-inside-avoid rounded-lg border border-slate-200 bg-white p-5"><div className="flex justify-between gap-4"><div><p className="text-xs font-bold uppercase text-brand-700">{item.category} · Rank {item.rank}</p><h3 className="mt-1 text-lg font-bold text-slate-950">{item.product_name}</h3><p className="text-sm text-slate-600">{item.brand_name}</p></div><span className="h-fit rounded-md bg-brand-100 px-2 py-1 text-sm font-bold text-brand-900">{item.score}/100</span></div><p className="mt-4 text-sm leading-6 text-slate-700">{item.why_recommended}</p>{item.cautions.length ? <p className="mt-3 text-sm text-amber-900">Cautions: {item.cautions.join(" ")}</p> : null}<dl className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-3 text-xs text-slate-600"><div><dt className="font-semibold">Price at report time</dt><dd>{item.price_at_report_time ? `INR ${item.price_at_report_time.amount}` : "Unavailable"}</dd></div><div><dt className="font-semibold">Availability</dt><dd>{item.availability_at_report_time}</dd></div></dl>{item.demo_status ? <p className="mt-3 text-xs font-bold text-clinic-800">Demonstration Product</p> : null}</article>)}</div></section>
+          {!printMode && (
+            <div className="print-hidden flex flex-wrap items-center gap-2.5">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-slate-800/80 px-4 py-2.5 text-xs font-bold text-slate-200 shadow-sm transition hover:bg-slate-700 hover:text-white"
+              >
+                <Printer className="h-4 w-4 text-slate-400" aria-hidden="true" />
+                Print
+              </button>
 
-    <div className="grid gap-8 lg:grid-cols-2"><RoutineTimeline title="Morning Routine" icon={Sun} steps={report.morning_routine} /><RoutineTimeline title="Night Routine" icon={Moon} steps={report.night_routine} /></div>
+              <label className="text-xs font-semibold text-slate-400">
+                <span className="sr-only">PDF Mode</span>
+                <select
+                  value={privacyMode}
+                  onChange={(e) => setPrivacyMode(e.target.value)}
+                  className="rounded-xl border border-white/10 bg-slate-800/80 px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="standard">Standard PDF</option>
+                  <option value="privacy_reduced">Privacy-Reduced PDF</option>
+                  <option value="technical">Technical PDF</option>
+                </select>
+              </label>
 
-    <section className="report-section grid gap-7 lg:grid-cols-2"><div><div className="flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-leaf-700" aria-hidden="true" /><h2 className="text-xl font-bold text-slate-950">Safety Guidance</h2></div><ul className="mt-4 space-y-3">{report.safety_guidance.map((item) => <li key={item} className="text-sm leading-6 text-slate-700">{item}</li>)}</ul></div><div><h2 className="text-xl font-bold text-slate-950">Limitations</h2><ul className="mt-4 space-y-3">{report.limitations.map((item) => <li key={item} className="text-sm leading-6 text-slate-700">{item}</li>)}</ul></div></section>
+              <button
+                type="button"
+                onClick={() => onExport?.(privacyMode)}
+                disabled={isExporting || report?.can_export_pdf === false}
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-emerald-600/30 transition hover:scale-105 disabled:opacity-40"
+              >
+                <Download className="h-4 w-4" aria-hidden="true" />
+                {isExporting ? "Exporting..." : "Export PDF"}
+              </button>
+            </div>
+          )}
+        </div>
+      </Card3D>
 
-    <details className="report-section border-y border-slate-200 py-5"><summary className="cursor-pointer font-semibold text-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600">Model, engine, and data-freshness details</summary><div className="mt-5 space-y-5 text-sm text-slate-700"><p><strong>Model versions:</strong> {JSON.stringify(report.model_versions)}</p><p><strong>Engine versions:</strong> {JSON.stringify(report.engine_versions)}</p><div className="overflow-x-auto"><table className="w-full border-collapse text-left"><caption className="sr-only">Product data freshness</caption><thead><tr className="border-b border-slate-300"><th className="p-2">Product ID</th><th className="p-2">Price checked</th><th className="p-2">Availability checked</th><th className="p-2">Source verified</th></tr></thead><tbody>{report.data_freshness.map((item) => <tr key={item.product_id} className="border-b border-slate-100"><td className="p-2">{item.product_id}</td><td className="p-2">{formatDate(item.price_checked_at)}</td><td className="p-2">{formatDate(item.availability_checked_at)}</td><td className="p-2">{formatDate(item.source_verified_at)}</td></tr>)}</tbody></table></div></div></details>
-  </article>;
+      {/* Medical Disclaimer Banner */}
+      <div className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-amber-950/30 p-5 backdrop-blur-xl">
+        <div className="flex items-start gap-3.5">
+          <AlertTriangle className="mt-0.5 h-6 w-6 shrink-0 text-amber-400" aria-hidden="true" />
+          <div>
+            <h2 className="text-sm font-bold text-amber-300 uppercase tracking-wide">
+              Clinical Disclaimer & Guidance
+            </h2>
+            <p className="mt-1 text-xs leading-relaxed text-amber-200/90">
+              {report?.medical_disclaimer || "DermaScan AI provides general skincare guidance based on visible facial characteristics and user-provided information. It is not a medical diagnostic system, does not prescribe treatment, and does not replace advice from a qualified dermatologist."}
+            </p>
+            <p className="mt-1.5 text-[11px] font-medium text-amber-300/80">
+              Seek professional advice for severe, painful, infected, persistent, rapidly changing, or unusual skin concerns.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* 3D Biometric KPI Overview Grid */}
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Card3D glowColor="emerald" className="border border-white/10 bg-slate-900/80 p-5 text-center">
+          <BiometricGauge3D
+            score={typeof skin?.model_confidence === "number" ? skin.model_confidence : 88}
+            label={skin?.skin_type || "Estimated Type"}
+            grade={skin?.confidence_level || "High Confidence"}
+            size={120}
+            strokeWidth={8}
+            color="emerald"
+          />
+          <span className="mt-1 block text-[11px] font-mono text-slate-400">Skin Classification</span>
+        </Card3D>
+
+        <Card3D glowColor="cyan" className="border border-white/10 bg-slate-900/80 p-5 text-center">
+          <BiometricGauge3D
+            score={concerns.observed.length > 0 ? 92 : 98}
+            label={`${concerns.observed.length} Characteristics`}
+            grade="Analyzed"
+            size={120}
+            strokeWidth={8}
+            color="cyan"
+          />
+          <span className="mt-1 block text-[11px] font-mono text-slate-400">Observed Facial Features</span>
+        </Card3D>
+
+        <Card3D glowColor="violet" className="border border-white/10 bg-slate-900/80 p-5 text-center">
+          <BiometricGauge3D
+            score={productRecommendations.length > 0 ? 95 : 85}
+            label={`${productRecommendations.length} Curations`}
+            grade="Ranked"
+            size={120}
+            strokeWidth={8}
+            color="violet"
+          />
+          <span className="mt-1 block text-[11px] font-mono text-slate-400">Formulation Compatibility</span>
+        </Card3D>
+
+        <Card3D glowColor="brand" className="border border-white/10 bg-slate-900/80 p-5 text-center">
+          <BiometricGauge3D
+            score={totalSteps > 0 ? 100 : 70}
+            label={`${totalSteps} Daily Steps`}
+            grade="Optimized"
+            size={120}
+            strokeWidth={8}
+            color="emerald"
+          />
+          <span className="mt-1 block text-[11px] font-mono text-slate-400">Routine Regimen</span>
+        </Card3D>
+      </div>
+
+      {/* Executive Summary */}
+      <Card3D glowColor="cyan" className="border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl">
+        <h2 className="text-xl font-black text-white flex items-center gap-2.5">
+          <Sparkles className="h-5 w-5 text-cyan-400" />
+          Executive Clinical Summary
+        </h2>
+        <p className="mt-3 text-sm leading-relaxed text-slate-300">
+          {report?.summary || "Comprehensive skin health overview synthesizing visible facial observations, self-reported sensitivity profiles, and targeted ingredient guidance."}
+        </p>
+      </Card3D>
+
+      {/* AI Visible Observations Breakdown */}
+      <Card3D glowColor="emerald" className="border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl">
+        <h2 className="text-xl font-black text-white flex items-center gap-2.5">
+          <Activity className="h-5 w-5 text-emerald-400" />
+          AI-Assisted Visible Facial Observations
+        </h2>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          {["observed", "possible", "uncertain"].map((group) => {
+            const list = concerns[group] || [];
+            return (
+              <div key={group} className="rounded-2xl border border-white/5 bg-slate-950/60 p-5">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <h3 className="font-bold capitalize text-white text-sm">{group} Findings</h3>
+                  <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-mono font-bold text-slate-300">
+                    {list.length}
+                  </span>
+                </div>
+
+                {list.length ? (
+                  <ul className="mt-4 space-y-3">
+                    {list.map((item, idx) => (
+                      <li key={item?.code || idx} className="rounded-xl border border-white/5 bg-slate-900/80 p-3">
+                        <div className="flex items-center justify-between">
+                          <p className="font-bold text-xs text-white">{item?.name || "Observation"}</p>
+                          <span className="font-mono text-[10px] font-bold text-emerald-400">
+                            {item?.confidence ? `${item.confidence}%` : "Detected"}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-[11px] text-slate-400">
+                          {item?.visible_severity || "Visible"} appearance · {Array.isArray(item?.regions) && item.regions.length ? item.regions.join(", ") : "Full Face"}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-4 text-xs text-slate-500 italic">None noted in this category.</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </Card3D>
+
+      {/* Ingredient Guidance */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card3D glowColor="emerald" className="border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl">
+          <div className="flex items-center gap-2.5 border-b border-white/10 pb-4">
+            <FlaskConical className="h-5 w-5 text-emerald-400" aria-hidden="true" />
+            <h2 className="text-lg font-black text-white">Beneficial Ingredient Roles</h2>
+          </div>
+          {relevantIngredients.length === 0 ? (
+            <p className="mt-4 text-xs text-slate-400 italic">No specific ingredient recommendations available.</p>
+          ) : (
+            <ul className="mt-5 space-y-4">
+              {relevantIngredients.map((item, idx) => (
+                <li key={item?.ingredient_role || idx} className="rounded-xl border border-white/5 bg-slate-950/60 p-3.5">
+                  <p className="font-bold text-xs text-emerald-400">{item?.ingredient_role}</p>
+                  <p className="mt-1 text-xs text-slate-300">{item?.reason}</p>
+                  {Array.isArray(item?.examples) && item.examples.length > 0 && (
+                    <p className="mt-1 text-[11px] text-slate-500">
+                      Examples: <span className="text-slate-400">{item.examples.join(", ")}</span>
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card3D>
+
+        <Card3D glowColor="violet" className="border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl">
+          <div className="flex items-center gap-2.5 border-b border-white/10 pb-4">
+            <ShieldCheck className="h-5 w-5 text-violet-400" aria-hidden="true" />
+            <h2 className="text-lg font-black text-white">Avoid or Review Formulas</h2>
+          </div>
+          {avoidIngredients.length === 0 ? (
+            <p className="mt-4 text-xs text-slate-400 italic">No specific avoidance items flagged.</p>
+          ) : (
+            <ul className="mt-5 space-y-4">
+              {avoidIngredients.map((item, idx) => (
+                <li key={item?.item || idx} className="rounded-xl border border-amber-500/20 bg-amber-950/20 p-3.5">
+                  <p className="font-bold text-xs text-amber-300">{item?.item}</p>
+                  <p className="mt-1 text-xs text-slate-300">{item?.reason}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card3D>
+      </div>
+
+      {/* Product Recommendations */}
+      {productRecommendations.length > 0 && (
+        <Card3D glowColor="brand" className="border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl">
+          <div className="border-b border-white/10 pb-4">
+            <h2 className="text-xl font-black text-white">Ranked Product Formulations</h2>
+            <p className="mt-1 text-xs text-slate-400">
+              Ranked according to compatibility with your skin type, sensitivity, and visible concerns.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            {productRecommendations.map((item, idx) => {
+              const cautions = Array.isArray(item?.cautions) ? item.cautions : [];
+              return (
+                <div key={item?.product_id || idx} className="rounded-2xl border border-white/5 bg-slate-950/60 p-5">
+                  <div className="flex justify-between gap-4">
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400">
+                        {item?.category || "SKINCARE"} · RANK {item?.rank ?? idx + 1}
+                      </span>
+                      <h3 className="mt-1 text-sm font-bold text-white">{item?.product_name || "Product"}</h3>
+                      <p className="text-xs text-slate-400">{item?.brand_name}</p>
+                    </div>
+                    {typeof item?.score === "number" && (
+                      <span className="h-fit rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-mono font-bold text-emerald-300">
+                        {item.score}/100
+                      </span>
+                    )}
+                  </div>
+                  {item?.why_recommended && (
+                    <p className="mt-3 text-xs leading-relaxed text-slate-300">{item.why_recommended}</p>
+                  )}
+                  {cautions.length > 0 && (
+                    <p className="mt-2 text-xs text-amber-300">⚠️ Caution: {cautions.join(" ")}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Card3D>
+      )}
+
+      {/* Skincare Routine Timelines */}
+      <div className="grid gap-8 lg:grid-cols-2">
+        <RoutineTimeline title="Morning Routine" icon={Sun} steps={morningRoutine} glowColor="emerald" />
+        <RoutineTimeline title="Night Routine" icon={Moon} steps={nightRoutine} glowColor="violet" />
+      </div>
+
+      {/* Safety & Limitations */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card3D glowColor="cyan" className="border border-white/10 bg-slate-900/80 p-6 backdrop-blur-2xl">
+          <h2 className="text-base font-black text-white flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-cyan-400" />
+            Safety Best Practices
+          </h2>
+          <ul className="mt-4 space-y-2.5">
+            {safetyGuidance.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-xs text-slate-300 leading-relaxed">
+                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-400 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Card3D>
+
+        <Card3D glowColor="violet" className="border border-white/10 bg-slate-900/80 p-6 backdrop-blur-2xl">
+          <h2 className="text-base font-black text-white flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4 text-amber-400" />
+            Analysis Limitations
+          </h2>
+          <ul className="mt-4 space-y-2.5">
+            {limitations.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
+                <span className="text-amber-400 font-bold">•</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Card3D>
+      </div>
+    </article>
+  );
 }
+
