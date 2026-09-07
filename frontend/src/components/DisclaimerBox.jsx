@@ -28,7 +28,7 @@ export function AdBanner({
       <ins
         className="adsbygoogle"
         style={{ display: "block", minHeight: "90px" }}
-        data-ad-client="ca-pub-1505656537844773"
+        data-ad-client="ca-pub-1505568687844779"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive}
