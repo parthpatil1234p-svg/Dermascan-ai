@@ -8,7 +8,11 @@ from app.core.config import Settings
 
 logger = logging.getLogger(__name__)
 
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+GEMINI_MODELS = [
+    "gemini-flash-lite-latest",
+    "gemini-3.5-flash",
+    "gemini-flash-latest",
+]
 
 
 def is_gemini_available(settings: Settings) -> bool:
@@ -25,57 +29,68 @@ async def chat_with_gemini(
         # Fallback intelligent rule-based responses
         return get_fallback_chat_response(message)
 
-    try:
-        system_instruction = (
-            "You are DermaBot, a friendly, gentle, and expert AI skincare assistant for DermaScan AI. "
-            "Your goal is to give simple, easy-to-follow, and reassuring skincare advice to everyday users. "
-            "Rules for responses: "
-            "1. Keep answers simple, short, and friendly (avoid overly complex medical jargon). "
-            "2. If the user asks in Hindi/Hinglish, reply in friendly Hinglish/Hindi. If in English, reply in simple English. "
-            "3. Use clear bullet points and emojis for readability. "
-            "4. Clearly explain practical steps (e.g. which product to apply first, morning vs night). "
-            "5. Always be polite, warm, and encourage healthy skin habits."
-        )
+    system_instruction = (
+        "You are DermaBot, a friendly, gentle, and expert AI skincare assistant for DermaScan AI. "
+        "Your goal is to give simple, easy-to-follow, and reassuring skincare advice to everyday users. "
+        "Rules for responses: "
+        "1. Keep answers simple, short, and friendly (avoid overly complex medical jargon). "
+        "2. If the user asks in Hindi/Hinglish, reply in friendly Hinglish/Hindi. If in English, reply in simple English. "
+        "3. Use clear bullet points, bold keywords, and emojis for readability. "
+        "4. Clearly explain practical steps (e.g. which product to apply first, morning vs night). "
+        "5. Always be polite, warm, and encourage healthy skin habits."
+    )
 
-        if user_context:
-            skin_type = user_context.get("skin_type", "unspecified")
-            concerns = user_context.get("concerns", [])
-            system_instruction += f"\nUser Profile: Skin Type: {skin_type}, Concerns: {', '.join(concerns) if concerns else 'None stated'}."
+    if user_context:
+        skin_type = user_context.get("skin_type", "unspecified")
+        concerns = user_context.get("concerns", [])
+        system_instruction += f"\nUser Profile: Skin Type: {skin_type}, Concerns: {', '.join(concerns) if concerns else 'None stated'}."
 
-        contents = []
-        # Add past history
-        for item in history[-6:]:  # Keep last 6 exchanges for context
-            role = "user" if item.get("sender") == "user" else "model"
-            contents.append({"role": role, "parts": [{"text": item.get("text", "")}]})
+    contents = []
+    # Add past history
+    for item in history[-6:]:  # Keep last 6 exchanges for context
+        role = "user" if item.get("sender") == "user" else "model"
+        text_val = item.get("text", "").strip()
+        if text_val:
+            contents.append({"role": role, "parts": [{"text": text_val}]})
 
-        # Add current user prompt
-        prompt_with_system = f"[System Context: {system_instruction}]\n\nUser Question: {message}"
-        contents.append({"role": "user", "parts": [{"text": prompt_with_system}]})
+    # Add current user prompt
+    prompt_with_system = f"[System Context: {system_instruction}]\n\nUser Question: {message}"
+    contents.append({"role": "user", "parts": [{"text": prompt_with_system}]})
 
-        payload = {
-            "contents": contents,
-            "generationConfig": {
-                "temperature": 0.4,
-                "maxOutputTokens": 600,
-            },
-        }
+    payload = {
+        "contents": contents,
+        "generationConfig": {
+            "temperature": 0.4,
+            "maxOutputTokens": 600,
+        },
+    }
 
-        url = f"{GEMINI_API_URL}?key={settings.gemini_api_key}"
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
+    # Try candidate models in order (e.g. gemini-flash-lite-latest, gemini-3.5-flash)
+    for model_name in GEMINI_MODELS:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.gemini_api_key.strip()}"
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
 
-        with urllib.request.urlopen(req, timeout=20) as response:
-            res_body = response.read().decode("utf-8")
-            data = json.loads(res_body)
-            return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            with urllib.request.urlopen(req, timeout=12) as response:
+                res_body = response.read().decode("utf-8")
+                data = json.loads(res_body)
+                candidate = data.get("candidates", [{}])[0]
+                content = candidate.get("content", {})
+                parts = content.get("parts", [])
+                if parts and "text" in parts[0]:
+                    return parts[0]["text"].strip()
 
-    except Exception as exc:
-        logger.warning("Gemini chat error, using fallback: %s", exc)
-        return get_fallback_chat_response(message)
+        except Exception as exc:
+            logger.warning("Gemini model %s failed: %s", model_name, exc)
+            continue
+
+    logger.warning("All Gemini candidate models failed, falling back to rule engine")
+    return get_fallback_chat_response(message)
 
 
 async def analyze_ingredients_with_gemini(
@@ -86,53 +101,60 @@ async def analyze_ingredients_with_gemini(
     if not is_gemini_available(settings):
         return get_fallback_ingredient_analysis(ingredients_text, skin_type)
 
-    try:
-        prompt = (
-            "You are a cosmetic chemistry and skincare formulation expert. "
-            f"Analyze the following cosmetic ingredient list for a user with {skin_type or 'general'} skin.\n\n"
-            f"Ingredient List:\n{ingredients_text}\n\n"
-            "Return a strictly valid JSON object with this exact structure:\n"
-            "{\n"
-            '  "overall_rating": "Good" | "Moderate" | "Caution",\n'
-            '  "safety_score": 85,\n'
-            '  "summary": "Brief 2-sentence summary of this formula.",\n'
-            '  "key_beneficial_ingredients": [\n'
-            '    {"name": "Niacinamide", "benefit": "Brightening and pore minimizing"}\n'
-            '  ],\n'
-            '  "potential_irritants_or_comedogenic": [\n'
-            '    {"name": "Fragrance", "concern": "May cause irritation in sensitive skin"}\n'
-            '  ],\n'
-            '  "layering_advice": "Apply after cleansing and before moisturizer.",\n'
-            '  "conflicts_to_avoid": ["Do not combine with strong direct acids in the same routine"]\n'
-            "}\n"
-            "Do NOT include markdown backticks or any extra text, only raw valid JSON."
-        )
+    prompt = (
+        "You are a cosmetic chemistry and skincare formulation expert. "
+        f"Analyze the following cosmetic ingredient list for a user with {skin_type or 'general'} skin.\n\n"
+        f"Ingredient List:\n{ingredients_text}\n\n"
+        "Return a strictly valid JSON object with this exact structure:\n"
+        "{\n"
+        '  "overall_rating": "Good" | "Moderate" | "Caution",\n'
+        '  "safety_score": 85,\n'
+        '  "summary": "Brief 2-sentence summary of this formula.",\n'
+        '  "key_beneficial_ingredients": [\n'
+        '    {"name": "Niacinamide", "benefit": "Brightening and pore minimizing"}\n'
+        '  ],\n'
+        '  "potential_irritants_or_comedogenic": [\n'
+        '    {"name": "Fragrance", "concern": "May cause irritation in sensitive skin"}\n'
+        '  ],\n'
+        '  "layering_advice": "Apply after cleansing and before moisturizer.",\n'
+        '  "conflicts_to_avoid": ["Do not combine with strong direct acids in the same routine"]\n'
+        "}\n"
+        "Do NOT include markdown backticks or any extra text, only raw valid JSON."
+    )
 
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "temperature": 0.2,
-                "responseMimeType": "application/json",
-            },
-        }
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": 0.2,
+            "responseMimeType": "application/json",
+        },
+    }
 
-        url = f"{GEMINI_API_URL}?key={settings.gemini_api_key}"
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
+    for model_name in GEMINI_MODELS:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.gemini_api_key.strip()}"
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
 
-        with urllib.request.urlopen(req, timeout=20) as response:
-            res_body = response.read().decode("utf-8")
-            data = json.loads(res_body)
-            raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
-            return json.loads(raw_text)
+            with urllib.request.urlopen(req, timeout=15) as response:
+                res_body = response.read().decode("utf-8")
+                data = json.loads(res_body)
+                raw_text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                # Clean possible markdown formatting if present
+                if raw_text.startswith("```"):
+                    raw_text = raw_text.strip("`").replace("json\n", "", 1).strip()
+                return json.loads(raw_text)
 
-    except Exception as exc:
-        logger.warning("Gemini ingredient analysis error, using fallback: %s", exc)
-        return get_fallback_ingredient_analysis(ingredients_text, skin_type)
+        except Exception as exc:
+            logger.warning("Gemini ingredient analysis model %s failed: %s", model_name, exc)
+            continue
+
+    logger.warning("All Gemini ingredient analysis models failed, using fallback")
+    return get_fallback_ingredient_analysis(ingredients_text, skin_type)
 
 
 def get_fallback_chat_response(query: str) -> str:
