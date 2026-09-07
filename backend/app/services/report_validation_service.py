@@ -88,6 +88,7 @@ def validate_source_relationships(
             item["product_id"]
             for key in ("morning_routine", "night_routine", "optional_products")
             for item in routine.get(key, [])
+            if not str(item.get("product_id", "")).startswith("gen-")
         }
         if not routine_ids.issubset(eligible_ids):
             raise ReportRelationshipError(

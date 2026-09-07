@@ -32,6 +32,8 @@ def select_recommendations(
     qualifying = [
         item for item in candidates if item.final_score >= settings.recommendation_min_display_score
     ]
+    if not qualifying and candidates:
+        qualifying = candidates
     grouped = {
         category: sort_candidates([item for item in qualifying if item.category == category])
         for category in CATEGORY_ORDER

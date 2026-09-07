@@ -55,9 +55,45 @@ def _step(item: StoredRecommendation, number: int, *, optional: bool = False) ->
     )
 
 
+def _generic_step(category: str, number: int) -> RoutineStep:
+    name_map = {
+        "cleanser": "Gentle pH-Balanced Cleanser",
+        "moisturizer": "Hydrating Barrier Moisturizer",
+        "sunscreen": "Broad-Spectrum Sunscreen SPF 30+",
+    }
+    return RoutineStep(
+        step_number=number,
+        category=category,
+        product_id=f"gen-{category}-01",
+        product_name=name_map.get(category, category.title()),
+        brand_name="General Dermatological Guidance",
+        purpose=PURPOSES.get(category, "Support skin health and barrier."),
+        usage_guidance=GUIDANCE.get(category, "Apply as directed on standard product labels."),
+        why_selected="Essential baseline step recommended when specific catalogue products are excluded by strict budget or allergy filters.",
+        cautions=[],
+        is_optional=False,
+        is_demo_product=False,
+    )
+
+
 def build_routines(
     recommendations: list[StoredRecommendation],
 ) -> tuple[list[RoutineStep], list[RoutineStep], list[RoutineAlternative], list[str]]:
+    if not recommendations:
+        morning = [
+            _generic_step("cleanser", 1),
+            _generic_step("moisturizer", 2),
+            _generic_step("sunscreen", 3),
+        ]
+        night = [
+            _generic_step("cleanser", 1),
+            _generic_step("moisturizer", 2),
+        ]
+        warnings = [
+            "No specific brand products matched your strict budget or allergen preferences. Universal baseline routine steps have been provided."
+        ]
+        return morning, night, [], warnings
+
     ranked = sorted(recommendations, key=lambda item: item.overall_rank or 10_000)
     by_category: dict[str, list[StoredRecommendation]] = {}
     for item in ranked:
@@ -129,7 +165,7 @@ async def generate_owned_routine(
             "Complete product recommendation scoring before generating a routine."
         )
     recommendation = await find_recommendation_report(recommendation_reports, upload_id, user_id)
-    if recommendation is None or not recommendation.get("recommendations"):
+    if recommendation is None:
         raise RoutinePrerequisiteError("A completed product recommendation report is required.")
     existing = await find_owned_routine(routine_reports, upload_id, user_id)
     await uploads.update_one({"_id": upload["_id"]}, {"$set": {"status": "routine_generating"}})
