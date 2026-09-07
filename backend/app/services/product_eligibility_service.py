@@ -90,15 +90,15 @@ async def load_ingredient_lookup(collection: Any) -> dict[str, dict[str, Any]]:
 
 
 def normalize_country(value: str) -> str:
+    if not value or not isinstance(value, str):
+        return "IN"
     key = normalize_key(value)
     if key in COUNTRY_ALIASES:
         return COUNTRY_ALIASES[key]
     candidate = value.strip().upper()
     if len(candidate) == 2 and candidate.isalpha():
         return candidate
-    raise EligibilityPrerequisiteError(
-        "The skin profile country is not supported by the current catalogue."
-    )
+    return "IN"
 
 
 def build_user_filter_context(
