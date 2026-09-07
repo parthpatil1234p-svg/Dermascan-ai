@@ -2,19 +2,20 @@ export default function PageHeader({ eyebrow, title, description }) {
   return (
     <header className="mx-auto mb-10 max-w-3xl text-center">
       {eyebrow ? (
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-brand-700">
+        <span className="mb-3 inline-block rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 backdrop-blur-md">
           {eyebrow}
-        </p>
+        </span>
       ) : null}
-      <h1 className="text-3xl font-bold text-slate-950 sm:text-4xl">
+      <h1 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
         {title}
       </h1>
       {description ? (
-        <p className="mt-4 text-base leading-7 text-slate-600">
+        <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-300">
           {description}
         </p>
       ) : null}
     </header>
   );
 }
+
 

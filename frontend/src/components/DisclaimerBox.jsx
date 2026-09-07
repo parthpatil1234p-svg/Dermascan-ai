@@ -20,9 +20,9 @@ export function AdBanner({
 
   return (
     <div
-      className={`mx-auto w-full max-w-5xl overflow-hidden rounded-xl border border-dashed border-slate-300 bg-slate-50/70 p-3 text-center ${className}`}
+      className={`mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-dashed border-white/15 bg-slate-900/60 p-3 text-center backdrop-blur-md ${className}`}
     >
-      <span className="block mb-1 text-[10px] font-medium uppercase tracking-wider text-slate-400">
+      <span className="block mb-1 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
         Advertisement
       </span>
       <ins
@@ -37,19 +37,20 @@ export function AdBanner({
   );
 }
 
-export default function DisclaimerBox({ title = "Medical disclaimer", description = MEDICAL_DISCLAIMER }) {
+export default function DisclaimerBox({ title = "Medical Disclaimer", description = MEDICAL_DISCLAIMER }) {
   return (
-    <aside className="rounded-lg border border-amber-200 bg-amber-50 p-5 text-amber-950">
-      <div className="flex items-start gap-3">
+    <aside className="rounded-2xl border border-amber-500/30 bg-amber-950/30 p-5 text-amber-200 backdrop-blur-xl">
+      <div className="flex items-start gap-3.5">
         <AlertTriangle
           aria-hidden="true"
-          className="mt-0.5 h-5 w-5 shrink-0 text-amber-700"
+          className="mt-0.5 h-5 w-5 shrink-0 text-amber-400"
         />
         <div>
-          <h2 className="text-base font-semibold">{title}</h2>
-          <p className="mt-2 text-sm leading-6">{description}</p>
+          <h2 className="text-sm font-bold uppercase tracking-wide text-amber-300">{title}</h2>
+          <p className="mt-2 text-xs leading-relaxed text-amber-100/90">{description}</p>
         </div>
       </div>
     </aside>
   );
 }
+

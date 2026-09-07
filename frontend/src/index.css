@@ -2,6 +2,117 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500 selection:text-white min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Universal high-contrast text rules */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-white font-bold tracking-tight;
+  }
+
+  p {
+    @apply text-slate-200;
+  }
+
+  label {
+    @apply text-slate-100 font-semibold;
+  }
+
+  /* Force override any legacy hardcoded dark text */
+  .text-slate-950,
+  .text-slate-900,
+  .text-slate-800 {
+    color: #ffffff !important;
+  }
+
+  .text-slate-700,
+  .text-slate-600 {
+    color: #e2e8f0 !important;
+  }
+
+  .text-slate-500 {
+    color: #94a3b8 !important;
+  }
+
+  /* Form Inputs (Inputs, Dropdowns, Textareas) text visibility */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea,
+  select {
+    @apply bg-slate-900 text-white border-white/20 placeholder:text-slate-400 rounded-xl focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 !important;
+    color: #ffffff !important;
+  }
+
+  /* Convert old white card backgrounds to dark-glass containers */
+  .bg-white:not(.keep-white) {
+    background-color: rgba(15, 23, 42, 0.85) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    backdrop-filter: blur(16px);
+  }
+
+  .bg-slate-50:not(.keep-slate) {
+    background-color: rgba(2, 6, 23, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .bg-slate-100:not(.keep-slate) {
+    background-color: rgba(30, 41, 59, 0.8) !important;
+    color: #ffffff !important;
+  }
+
+  /* Borders high contrast */
+  .border-slate-200,
+  .border-slate-300 {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  /* Alert & Medical Disclaimers readability */
+  .bg-red-50 {
+    background-color: rgba(69, 10, 10, 0.5) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #fecaca !important;
+  }
+  .text-red-950 {
+    color: #fee2e2 !important;
+  }
+
+  .bg-amber-50,
+  .bg-amber-100 {
+    background-color: rgba(69, 26, 3, 0.5) !important;
+    border-color: rgba(245, 158, 11, 0.4) !important;
+    color: #fef08a !important;
+  }
+  .text-amber-900,
+  .text-amber-950 {
+    color: #fef08a !important;
+  }
+
+  .bg-brand-50,
+  .bg-brand-100,
+  .bg-clinic-50,
+  .bg-clinic-100 {
+    background-color: rgba(6, 78, 59, 0.5) !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+    color: #a7f3d0 !important;
+  }
+  .text-brand-900,
+  .text-brand-950,
+  .text-brand-800,
+  .text-brand-700 {
+    color: #34d399 !important;
+  }
+}
+
 @media print {
   @page { size: A4; margin: 14mm; }
   header.sticky, footer, .print-hidden { display: none !important; }

@@ -13,18 +13,19 @@ export default function FormInput({
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="block text-sm font-semibold text-slate-800">
+      <label htmlFor={id} className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
         {label}
       </label>
       <InputComponent
         id={id}
         aria-invalid={error ? "true" : "false"}
         aria-describedby={error ? errorId : undefined}
-        className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand-600 focus:ring-4 focus:ring-brand-100"
+        className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900/90 px-4 py-3 text-sm text-white shadow-inner outline-none transition placeholder:text-slate-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
         {...props}
       />
       <ErrorMessage id={errorId} message={error} />
     </div>
   );
 }
+
 
