@@ -254,12 +254,144 @@
 }
 
 @media print {
-  @page { size: A4; margin: 14mm; }
-  header.sticky, footer, .print-hidden { display: none !important; }
-  body { background: white !important; color: #0f172a; }
-  .report-section { break-inside: avoid; }
-  article { max-width: none !important; }
-  button, select { display: none !important; }
+  @page {
+    size: A4;
+    margin: 12mm 14mm 14mm 14mm;
+  }
+
+  /* Hide interactive, navigation, 3D, and background elements */
+  header.sticky,
+  footer,
+  nav,
+  canvas,
+  .print-hidden,
+  button,
+  select,
+  .pointer-events-none,
+  #derma-chat-widget,
+  .chat-widget-container {
+    display: none !important;
+  }
+
+  /* Clean Paper Reset */
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Container & Layout */
+  main,
+  section,
+  article {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Turn dark glass containers into clean clinic paper cards */
+  .bg-slate-900,
+  .bg-slate-950,
+  .bg-slate-900\/80,
+  .bg-slate-900\/90,
+  .bg-slate-950\/60,
+  .dark-glass,
+  .glass-panel,
+  [class*="Card3D"] {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    backdrop-filter: none !important;
+    border-radius: 12px !important;
+    color: #0f172a !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Typography for Print */
+  h1, h2, h3, h4, h5, h6 {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+  }
+
+  h1 {
+    font-size: 18pt !important;
+    color: #0f766e !important;
+    margin-bottom: 4pt !important;
+  }
+
+  h2 {
+    font-size: 13pt !important;
+    color: #0f172a !important;
+    margin-top: 10pt !important;
+    margin-bottom: 4pt !important;
+  }
+
+  h3 {
+    font-size: 10pt !important;
+    color: #0f172a !important;
+  }
+
+  p, span, dt, dd, li {
+    color: #334155 !important;
+  }
+
+  /* Step numbers & badges */
+  ol li span:first-child,
+  .font-black {
+    color: #0f172a !important;
+  }
+
+  /* Routine & Category Badges */
+  .text-emerald-400,
+  .text-cyan-400,
+  .text-teal-400 {
+    color: #0f766e !important;
+    font-weight: 600 !important;
+  }
+
+  .bg-emerald-500\/10,
+  .bg-cyan-500\/10,
+  .bg-amber-500\/10,
+  .bg-indigo-500\/20,
+  .bg-amber-500\/20 {
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+  }
+
+  /* Clinical Disclaimer Box in Print */
+  .bg-amber-950\/30,
+  .bg-amber-50,
+  .bg-amber-100 {
+    background: #fef3c7 !important;
+    border: 1px solid #f59e0b !important;
+    color: #78350f !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    break-inside: avoid !important;
+  }
+
+  .bg-amber-950\/30 p,
+  .bg-amber-950\/30 h2 {
+    color: #78350f !important;
+  }
+
+  /* Page Break Safeguards */
+  .report-section,
+  .grid,
+  table,
+  article > div {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
 }
 
 :root {
