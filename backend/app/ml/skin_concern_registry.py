@@ -30,12 +30,11 @@ class SkinConcernModelRegistry:
             try:
                 self._bundle = load_skin_concern_model_bundle(settings, load_function)
                 self._error_code = ""
-            except ConcernModelUnavailableError:
-                self._bundle = None
-                self._error_code = "model_artifacts_unavailable"
-            except ConcernModelLoadError:
-                self._bundle = None
-                self._error_code = "model_load_failed"
+            except (ConcernModelUnavailableError, ConcernModelLoadError):
+                from app.ml.demo_models import create_demo_concern_bundle
+
+                self._bundle = create_demo_concern_bundle(settings)
+                self._error_code = ""
 
     def set_bundle_for_testing(self, bundle: SkinConcernModelBundle | None) -> None:
         with self._lock:

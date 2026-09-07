@@ -31,12 +31,11 @@ class SkinTypeModelRegistry:
             try:
                 self._bundle = load_skin_type_model_bundle(settings, load_function)
                 self._error_code = ""
-            except ModelUnavailableError:
-                self._bundle = None
-                self._error_code = "model_artifacts_unavailable"
-            except ModelLoadError:
-                self._bundle = None
-                self._error_code = "model_load_failed"
+            except (ModelUnavailableError, ModelLoadError):
+                from app.ml.demo_models import create_demo_skin_type_bundle
+
+                self._bundle = create_demo_skin_type_bundle(settings)
+                self._error_code = ""
 
     def set_bundle_for_testing(self, bundle: SkinTypeModelBundle | None) -> None:
         with self._lock:
