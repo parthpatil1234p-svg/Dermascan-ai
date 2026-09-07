@@ -2,11 +2,68 @@ import { Bot, MessageSquare, Send, Sparkles, User, X, Loader2, RefreshCw, Cpu, A
 import { useEffect, useRef, useState } from "react";
 import { sendAIChatMessage } from "../services/aiService";
 
+function parseInlineBold(text) {
+  if (!text) return "";
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-bold text-emerald-300">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
+function FormattedChatMessage({ text }) {
+  if (!text) return null;
+
+  const lines = text.split("\n");
+
+  return (
+    <div className="space-y-1.5 text-xs sm:text-sm leading-relaxed">
+      {lines.map((line, idx) => {
+        const trimmed = line.trim();
+        if (!trimmed) return <div key={idx} className="h-0.5" />;
+
+        // Check if line is a bullet point: - or • or *
+        if (trimmed.startsWith("- ") || trimmed.startsWith("• ") || (trimmed.startsWith("* ") && !trimmed.endsWith("*"))) {
+          const content = trimmed.replace(/^[-•*]\s+/, "");
+          return (
+            <div key={idx} className="flex items-start gap-2 pl-0.5 mt-1">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
+              <span className="flex-1">{parseInlineBold(content)}</span>
+            </div>
+          );
+        }
+
+        // Check if line is a numbered list: 1. or 2.
+        const numMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+        if (numMatch) {
+          return (
+            <div key={idx} className="flex items-start gap-2 pl-0.5 mt-1">
+              <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[9px] font-mono font-bold text-emerald-400 mt-0.5">
+                {numMatch[1]}
+              </span>
+              <span className="flex-1">{parseInlineBold(numMatch[2])}</span>
+            </div>
+          );
+        }
+
+        // Section headers or regular text
+        return <p key={idx}>{parseInlineBold(line)}</p>;
+      })}
+    </div>
+  );
+}
+
 const SUGGESTIONS = [
-  "Best sunscreen for oily acne-prone skin?",
+  "Best sunscreen for oily acne skin?",
   "Can I use Niacinamide with Salicylic Acid?",
-  "How should I layer my skincare routine?",
-  "What ingredients help fade dark spots?",
+  "How to layer my skincare routine?",
+  "Ingredients to fade dark spots?",
 ];
 
 export default function AIChatWidget() {
@@ -15,9 +72,10 @@ export default function AIChatWidget() {
     {
       id: "welcome",
       sender: "ai",
-      text: "👋 Hi! I am DermaBot AI 3D Biometric Assistant. Ask me anything about skincare routines, clinical ingredients, or product layering formulation!",
+      text: "👋 Hi! Main hoon DermaBot AI Skincare Assistant.\nAap mujhse kisi bhi skin issue, skincare routine, ya active ingredients ke baare mein pooch sakte hain!",
     },
   ]);
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -182,11 +240,11 @@ export default function AIChatWidget() {
                 <div
                   className={`max-w-[84%] rounded-2xl px-4 py-3 text-xs sm:text-sm leading-relaxed ${
                     msg.sender === "user"
-                      ? "border border-cyan-500/30 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-br-none shadow-[0_4px_15px_rgba(6,182,212,0.25)]"
-                      : "border border-white/10 bg-slate-900/90 text-slate-200 rounded-bl-none shadow-sm backdrop-blur-lg"
+                      ? "border border-cyan-500/30 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-br-none shadow-[0_4px_15px_rgba(6,182,212,0.25)] font-medium"
+                      : "border border-white/10 bg-slate-900/95 text-slate-100 rounded-bl-none shadow-sm backdrop-blur-lg"
                   }`}
                 >
-                  <div className="whitespace-pre-line">{msg.text}</div>
+                  <FormattedChatMessage text={msg.text} />
                 </div>
                 {msg.sender === "user" && (
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-cyan-500/30 bg-cyan-950/70 text-cyan-300 text-xs font-bold">

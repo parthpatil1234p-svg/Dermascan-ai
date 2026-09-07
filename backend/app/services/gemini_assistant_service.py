@@ -27,17 +27,20 @@ async def chat_with_gemini(
 
     try:
         system_instruction = (
-            "You are DermaBot, a friendly, knowledgeable, and responsible AI skincare assistant for the DermaScan AI platform. "
-            "Help users understand skincare concepts, ingredients (like Niacinamide, Salicylic Acid, Hyaluronic Acid, Retinol), "
-            "product layering order (Cleanser -> Toner -> Serum -> Moisturizer -> Sunscreen), and general skin wellness. "
-            "Always include a brief reminder that you provide general skincare guidance and not medical prescriptions or diagnosis. "
-            "Keep answers concise, warm, helpful, structured with bullet points where appropriate, and easy to read."
+            "You are DermaBot, a friendly, gentle, and expert AI skincare assistant for DermaScan AI. "
+            "Your goal is to give simple, easy-to-follow, and reassuring skincare advice to everyday users. "
+            "Rules for responses: "
+            "1. Keep answers simple, short, and friendly (avoid overly complex medical jargon). "
+            "2. If the user asks in Hindi/Hinglish, reply in friendly Hinglish/Hindi. If in English, reply in simple English. "
+            "3. Use clear bullet points and emojis for readability. "
+            "4. Clearly explain practical steps (e.g. which product to apply first, morning vs night). "
+            "5. Always be polite, warm, and encourage healthy skin habits."
         )
 
         if user_context:
             skin_type = user_context.get("skin_type", "unspecified")
             concerns = user_context.get("concerns", [])
-            system_instruction += f"\nUser's Profile Context: Skin Type: {skin_type}, Visible Concerns: {', '.join(concerns) if concerns else 'None stated'}."
+            system_instruction += f"\nUser Profile: Skin Type: {skin_type}, Concerns: {', '.join(concerns) if concerns else 'None stated'}."
 
         contents = []
         # Add past history
@@ -53,7 +56,7 @@ async def chat_with_gemini(
             "contents": contents,
             "generationConfig": {
                 "temperature": 0.4,
-                "maxOutputTokens": 800,
+                "maxOutputTokens": 600,
             },
         }
 
@@ -134,20 +137,61 @@ async def analyze_ingredients_with_gemini(
 
 def get_fallback_chat_response(query: str) -> str:
     q = query.lower()
-    if "sunscreen" in q or "spf" in q:
-        return "☀️ **Sunscreen Guide:**\n- For Oily/Acne-Prone skin: Use Gel-based or Fluid SPF 50 PA++++.\n- For Dry skin: Use Cream-based hydrating sunscreen with Ceramides or Hyaluronic acid.\n- Remember to apply 2 finger lengths 15 minutes before sun exposure!"
+    if "sunscreen" in q or "spf" in q or "dhoop" in q:
+        return (
+            "☀️ **Sunscreen Guide (Easy Tips):**\n"
+            "- **For Oily or Acne skin:** Choose a light Gel-based or Fluid SPF 50 (Matte finish).\n"
+            "- **For Dry skin:** Choose a hydrating Cream-based SPF with Ceramides or Hyaluronic acid.\n"
+            "- **How to use:** Apply 2 finger lengths evenly 15 minutes before sun exposure!"
+        )
     if "niacinamide" in q and "salicylic" in q:
-        return "✨ **Combining Niacinamide & Salicylic Acid:**\nYes! They work wonderfully together. Apply Salicylic Acid (BHA) first to clean pores, wait 2 minutes, then apply Niacinamide to soothe and balance oil."
+        return (
+            "✨ **Niacinamide + Salicylic Acid Pairing:**\n"
+            "- **Yes, they work great together!**\n"
+            "- **Step 1:** Apply Salicylic Acid first on clean skin to clear deep pores.\n"
+            "- **Step 2:** Wait 2 minutes, then apply Niacinamide to calm redness and control oil."
+        )
     if "retinol" in q or "vitamin c" in q:
-        return "💡 **Vitamin C & Retinol Routine:**\n- Use **Vitamin C Serum in the Morning** to protect against UV and brighten skin.\n- Use **Retinol at Night** for collagen and cellular renewal. Avoid applying both at the same time."
+        return (
+            "💡 **Vitamin C & Retinol Guide:**\n"
+            "- **Morning:** Use Vitamin C Serum to brighten skin and protect against UV rays.\n"
+            "- **Night:** Use Retinol (2-3 nights a week) for skin renewal and anti-aging.\n"
+            "- **Rule:** Never apply both together at the same time to prevent irritation."
+        )
+    if "acne" in q or "pimple" in q or "daane" in q:
+        return (
+            "🌿 **Acne & Pimple Care:**\n"
+            "- Use a gentle Salicylic Acid or Benzoyl Peroxide cleanser.\n"
+            "- Keep skin hydrated with an oil-free, non-comedogenic moisturizer.\n"
+            "- Avoid popping pimples to prevent scarring."
+        )
+    if "dark spot" in q or "pigmentation" in q or "daag" in q:
+        return (
+            "🎯 **Dark Spots & Pigmentation Care:**\n"
+            "- **Best Actives:** Niacinamide, Alpha Arbutin, Vitamin C, and Kojic Acid.\n"
+            "- **Must-Do:** Daily SPF 50 Sunscreen prevents spots from getting darker."
+        )
+    if "dry" in q or "sukhi" in q:
+        return (
+            "💧 **Dry Skin Relief:**\n"
+            "- Use a hydrating creamy cleanser (no harsh foam).\n"
+            "- Apply Ceramide + Hyaluronic Acid moisturizer on damp skin.\n"
+            "- Avoid hot water face wash."
+        )
+    if "oily" in q or "chipchipi" in q:
+        return (
+            "✨ **Oily Skin Control:**\n"
+            "- Use a gentle foaming cleanser with Salicylic acid.\n"
+            "- Use lightweight oil-free gel moisturizer (skipping moisturizer makes skin more oily!).\n"
+            "- Use a matte-finish sunscreen."
+        )
     return (
-        "Hello! I am your AI Skincare Assistant. "
-        "Here are standard golden rules for healthy skin:\n"
-        "1. **Cleanse gently** morning and night.\n"
-        "2. **Hydrate & Moisturize** to protect your skin barrier.\n"
-        "3. **Never skip Broad-Spectrum Sunscreen** during daytime.\n\n"
-        "How can I help you customize your routine today?"
+        "👋 **Hello! Main aapka AI Skincare Assistant hoon.**\n"
+        "- Aap mujhse kisi bhi skin problem (Acne, Dark spots, Dryness, Oily skin) ke baare mein pooch sakte hain.\n"
+        "- Ya kisi bhi product ingredient (Niacinamide, Retinol, Sunscreen) ka sahi use jaan sakte hain!\n"
+        "- **Bataiye, aaj aapki skin ke liye kya help chahiye?**"
     )
+
 
 
 def get_fallback_ingredient_analysis(ingredients_text: str, skin_type: str | None) -> dict[str, Any]:
