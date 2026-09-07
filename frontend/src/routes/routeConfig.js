@@ -1,31 +1,58 @@
 import { lazy } from "react";
 
-const FaceScanPage = lazy(() => import("../pages/FaceScanPage"));
-const FaceDetectionPage = lazy(() => import("../pages/FaceDetectionPage"));
-const HomePage = lazy(() => import("../pages/HomePage"));
-const ImagePreprocessingPage = lazy(() => import("../pages/ImagePreprocessingPage"));
-const ImageQualityCheckPage = lazy(() => import("../pages/ImageQualityCheckPage"));
-const LoginPage = lazy(() => import("../pages/LoginPage"));
-const RegisterPage = lazy(() => import("../pages/RegisterPage"));
-const ReportsPage = lazy(() => import("../pages/ReportsPage"));
-const SkinProfilePage = lazy(() => import("../pages/SkinProfilePage"));
-const SkinTypeAnalysisPage = lazy(() => import("../pages/SkinTypeAnalysisPage"));
-const SkinConcernAnalysisPage = lazy(() => import("../pages/SkinConcernAnalysisPage"));
-const ProductDiscoveryPage = lazy(() => import("../pages/ProductDiscoveryPage"));
-const ProductsPage = lazy(() => import("../pages/ProductsPage"));
-const ProductDetailPage = lazy(() => import("../pages/ProductDetailPage"));
-const IngredientsPage = lazy(() => import("../pages/IngredientsPage"));
-const IngredientDetailPage = lazy(() => import("../pages/IngredientDetailPage"));
-const IngredientCheckerPage = lazy(() => import("../pages/IngredientCheckerPage"));
-const ProductEligibilityPage = lazy(() => import("../pages/ProductEligibilityPage"));
-const ProductRecommendationsPage = lazy(() => import("../pages/ProductRecommendationsPage"));
-const SkincareRoutinePage = lazy(() => import("../pages/SkincareRoutinePage"));
-const FinalReportGenerationPage = lazy(() => import("../pages/FinalReportGenerationPage"));
-const FinalReportDashboardPage = lazy(() => import("../pages/FinalReportDashboardPage"));
-const FinalReportPrintPage = lazy(() => import("../pages/FinalReportPrintPage"));
-const FeedbackPage = lazy(() => import("../pages/FeedbackPage"));
-const FeedbackHistoryPage = lazy(() => import("../pages/FeedbackHistoryPage"));
-const FeedbackDetailPage = lazy(() => import("../pages/FeedbackDetailPage"));
+/**
+ * lazyWithRetry - Resilient chunk loader for SPA deployments
+ * If a new build is deployed to Vercel and an old browser tab requests a replaced chunk hash,
+ * this automatically refreshes the page once to load the newest manifest without throwing an uncaught error.
+ */
+function lazyWithRetry(componentImport) {
+  return lazy(async () => {
+    const key = `chunk_retry_${window.location.pathname}`;
+    const isRetrying = window.sessionStorage.getItem(key);
+    try {
+      const component = await componentImport();
+      if (isRetrying) {
+        window.sessionStorage.removeItem(key);
+      }
+      return component;
+    } catch (error) {
+      if (!isRetrying) {
+        window.sessionStorage.setItem(key, "true");
+        window.location.reload();
+        return new Promise(() => {}); // Pause until reload
+      }
+      throw error;
+    }
+  });
+}
+
+const FaceScanPage = lazyWithRetry(() => import("../pages/FaceScanPage"));
+const FaceDetectionPage = lazyWithRetry(() => import("../pages/FaceDetectionPage"));
+const HomePage = lazyWithRetry(() => import("../pages/HomePage"));
+const ImagePreprocessingPage = lazyWithRetry(() => import("../pages/ImagePreprocessingPage"));
+const ImageQualityCheckPage = lazyWithRetry(() => import("../pages/ImageQualityCheckPage"));
+const LoginPage = lazyWithRetry(() => import("../pages/LoginPage"));
+const RegisterPage = lazyWithRetry(() => import("../pages/RegisterPage"));
+const ReportsPage = lazyWithRetry(() => import("../pages/ReportsPage"));
+const SkinProfilePage = lazyWithRetry(() => import("../pages/SkinProfilePage"));
+const SkinTypeAnalysisPage = lazyWithRetry(() => import("../pages/SkinTypeAnalysisPage"));
+const SkinConcernAnalysisPage = lazyWithRetry(() => import("../pages/SkinConcernAnalysisPage"));
+const ProductDiscoveryPage = lazyWithRetry(() => import("../pages/ProductDiscoveryPage"));
+const ProductsPage = lazyWithRetry(() => import("../pages/ProductsPage"));
+const ProductDetailPage = lazyWithRetry(() => import("../pages/ProductDetailPage"));
+const IngredientsPage = lazyWithRetry(() => import("../pages/IngredientsPage"));
+const IngredientDetailPage = lazyWithRetry(() => import("../pages/IngredientDetailPage"));
+const IngredientCheckerPage = lazyWithRetry(() => import("../pages/IngredientCheckerPage"));
+const ProductEligibilityPage = lazyWithRetry(() => import("../pages/ProductEligibilityPage"));
+const ProductRecommendationsPage = lazyWithRetry(() => import("../pages/ProductRecommendationsPage"));
+const SkincareRoutinePage = lazyWithRetry(() => import("../pages/SkincareRoutinePage"));
+const FinalReportGenerationPage = lazyWithRetry(() => import("../pages/FinalReportGenerationPage"));
+const FinalReportDashboardPage = lazyWithRetry(() => import("../pages/FinalReportDashboardPage"));
+const FinalReportPrintPage = lazyWithRetry(() => import("../pages/FinalReportPrintPage"));
+const FeedbackPage = lazyWithRetry(() => import("../pages/FeedbackPage"));
+const FeedbackHistoryPage = lazyWithRetry(() => import("../pages/FeedbackHistoryPage"));
+const FeedbackDetailPage = lazyWithRetry(() => import("../pages/FeedbackDetailPage"));
+
 
 export const routeConfig = [
   {
