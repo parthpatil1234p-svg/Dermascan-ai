@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     )
     enable_hsts: bool = Field(False, alias="ENABLE_HSTS")
     ai_demo_mode: bool = Field(True, alias="AI_DEMO_MODE")
+    gemini_api_key: str | None = Field(None, alias="GEMINI_API_KEY")
     rate_limit_enabled: bool = Field(True, alias="RATE_LIMIT_ENABLED")
     rate_limit_window_seconds: int = Field(60, alias="RATE_LIMIT_WINDOW_SECONDS", ge=1, le=3600)
     rate_limit_registration: int = Field(5, alias="RATE_LIMIT_REGISTRATION", ge=1, le=1000)
