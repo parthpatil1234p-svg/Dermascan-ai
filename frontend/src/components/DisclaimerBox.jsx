@@ -1,17 +1,21 @@
 import { AlertTriangle } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { MEDICAL_DISCLAIMER } from "../constants/appContent";
 
 export function AdBanner({
-  slot = "1234567890",
+  slot = "7170101434",
   format = "auto",
   responsive = "true",
   className = "my-6",
 }) {
+  const adRef = useRef(null);
+
   useEffect(() => {
     try {
-      if (typeof window !== "undefined") {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (typeof window !== "undefined" && adRef.current) {
+        if (!adRef.current.getAttribute("data-adsbygoogle-status")) {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }
       }
     } catch (err) {
       console.error("AdSense error:", err);
@@ -26,6 +30,7 @@ export function AdBanner({
         Advertisement
       </span>
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={{ display: "block", minHeight: "90px" }}
         data-ad-client="ca-pub-1505568687844779"
