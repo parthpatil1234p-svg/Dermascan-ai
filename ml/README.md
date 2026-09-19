@@ -2,15 +2,22 @@
 
 This workspace supports four visual classes in fixed order: `normal`, `oily`, `dry`, `combination`. Sensitivity is intentionally excluded because it is self-reported and is not an image-only diagnosis.
 
-No dataset, trained model, or performance metric is committed. Obtain a licensed, consented dataset, document annotation criteria and demographic coverage, populate `data/manifest.csv`, then run:
+### Supported Hugging Face Dataset
+The recommended open-source dataset for this workspace is **[`akage99/skin_type_classification`](https://huggingface.co/datasets/akage99/skin_type_classification)** on Hugging Face.
 
+To automatically download the dataset and populate `data/manifest.csv`:
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt datasets huggingface_hub
+python scripts/download_huggingface_dataset.py
+```
+
+Then run the standard training pipeline:
+```bash
 python scripts/validate_dataset.py
 python scripts/split_dataset.py
 python scripts/train_skin_type_model.py
-python scripts/evaluate_skin_type_model.py --dataset-version YOUR_VERSION
-python scripts/export_skin_type_model.py --dataset-version YOUR_VERSION
+python scripts/evaluate_skin_type_model.py --dataset-version hf-akage99-v1
+python scripts/export_skin_type_model.py --dataset-version hf-akage99-v1
 pytest
 ```
 

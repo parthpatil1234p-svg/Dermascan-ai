@@ -26,9 +26,11 @@ evaluation metrics. Health reports model availability honestly. Readiness is
 
 ## Training And Evaluation
 
-The `ml` workspace contains dataset validation, split, training, threshold
-calibration, evaluation, and export scripts. A valid evaluation must document
-dataset source/license/version, subject-aware split limitations, class balance,
+The `ml` workspace contains dataset preparation, validation, split, training, threshold
+calibration, evaluation, and export scripts. The reference skin-type dataset integrated
+with the codebase is **[`akage99/skin_type_classification`](https://huggingface.co/datasets/akage99/skin_type_classification)** from Hugging Face Hub (covering `normal`, `oily`, `dry`, and `combination` classes).
+
+A valid evaluation must document dataset source/license/version, subject-aware split limitations, class balance,
 accuracy, precision, recall, F1, confusion matrix, per-class or multi-label
 metrics, threshold selection, calibration, and fairness limitations.
 
