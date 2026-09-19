@@ -1,0 +1,126 @@
+{
+  "architecture": "MobileNetV2",
+  "class_distribution": {
+    "combination": 182,
+    "dry": 212,
+    "normal": 1508,
+    "oily": 82
+  },
+  "dataset_size": 1984,
+  "dataset_version": "hf-akage99-v1",
+  "fairness_limitations": "Coverage cannot be assessed without consented demographic and skin-tone metadata.",
+  "known_limitations": [
+    "Image labels and technical conditions may not represent real-world use.",
+    "Softmax confidence is not guaranteed to be calibrated."
+  ],
+  "split_distribution": {
+    "test": {
+      "combination": 28,
+      "dry": 32,
+      "normal": 226,
+      "oily": 13
+    },
+    "train": {
+      "combination": 127,
+      "dry": 148,
+      "normal": 1056,
+      "oily": 57
+    },
+    "validation": {
+      "combination": 27,
+      "dry": 32,
+      "normal": 226,
+      "oily": 12
+    }
+  },
+  "split_strategy": "subject-level 70/15/15 with class grouping where practical",
+  "test_metrics": {
+    "accuracy": 0.6923076923076923,
+    "class_names": [
+      "normal",
+      "oily",
+      "dry",
+      "combination"
+    ],
+    "confusion_matrix": [
+      [
+        186,
+        13,
+        14,
+        13
+      ],
+      [
+        6,
+        4,
+        3,
+        0
+      ],
+      [
+        12,
+        6,
+        10,
+        4
+      ],
+      [
+        18,
+        2,
+        1,
+        7
+      ]
+    ],
+    "cross_entropy_loss": 0.7672083973884583,
+    "expected_calibration_error": 0.03778771193928542,
+    "macro_f1": 0.4108618903026797,
+    "macro_precision": 0.41166184041184045,
+    "macro_recall": 0.42330028931245745,
+    "per_class": [
+      {
+        "f1": 0.8303571428571428,
+        "precision": 0.8378378378378378,
+        "recall": 0.8230088495575221,
+        "support": 226
+      },
+      {
+        "f1": 0.2105263157894737,
+        "precision": 0.16,
+        "recall": 0.3076923076923077,
+        "support": 13
+      },
+      {
+        "f1": 0.3333333333333333,
+        "precision": 0.35714285714285715,
+        "recall": 0.3125,
+        "support": 32
+      },
+      {
+        "f1": 0.2692307692307692,
+        "precision": 0.2916666666666667,
+        "recall": 0.25,
+        "support": 28
+      }
+    ],
+    "top_confidence_distribution": [
+      0,
+      0,
+      0,
+      15,
+      37,
+      43,
+      42,
+      45,
+      53,
+      64
+    ],
+    "weighted_f1": 0.6976678414585472
+  },
+  "training_configuration": {
+    "batch_size": 32,
+    "dropout_rate": 0.3,
+    "early_stopping_patience": 4,
+    "feature_extraction_epochs": 15,
+    "fine_tune_layers": 30,
+    "fine_tuning_epochs": 10,
+    "fine_tuning_learning_rate": 1e-05,
+    "initial_learning_rate": 0.001
+  }
+}

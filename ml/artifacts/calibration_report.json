@@ -1,0 +1,54 @@
+{
+  "bins": [
+    {
+      "accuracy": 0.3333333333333333,
+      "count": 15,
+      "lower": 0.30000000000000004,
+      "mean_confidence": 0.3553130328655243,
+      "upper": 0.4
+    },
+    {
+      "accuracy": 0.4864864864864865,
+      "count": 37,
+      "lower": 0.4,
+      "mean_confidence": 0.4535966217517853,
+      "upper": 0.5
+    },
+    {
+      "accuracy": 0.5116279069767442,
+      "count": 43,
+      "lower": 0.5,
+      "mean_confidence": 0.5559743642807007,
+      "upper": 0.6
+    },
+    {
+      "accuracy": 0.5476190476190477,
+      "count": 42,
+      "lower": 0.6000000000000001,
+      "mean_confidence": 0.6455774307250977,
+      "upper": 0.7000000000000001
+    },
+    {
+      "accuracy": 0.7111111111111111,
+      "count": 45,
+      "lower": 0.7000000000000001,
+      "mean_confidence": 0.7460886836051941,
+      "upper": 0.8
+    },
+    {
+      "accuracy": 0.8867924528301887,
+      "count": 53,
+      "lower": 0.8,
+      "mean_confidence": 0.8562160730361938,
+      "upper": 0.9
+    },
+    {
+      "accuracy": 0.9375,
+      "count": 64,
+      "lower": 0.9,
+      "mean_confidence": 0.9458783864974976,
+      "upper": 1.0
+    }
+  ],
+  "expected_calibration_error": 0.03778771193928542
+}

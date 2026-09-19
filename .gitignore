@@ -27,3 +27,9 @@ dist/
 frontend/dist/
 build/
 .DS_Store
+
+# ML Data & Large Checkpoints
+ml/data/raw/
+**/tensorboard/
+ml/data/_hf_temp_extracted/
+

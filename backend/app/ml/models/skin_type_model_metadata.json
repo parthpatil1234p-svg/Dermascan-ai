@@ -1,0 +1,98 @@
+{
+  "architecture": "MobileNetV2",
+  "classes": [
+    "normal",
+    "oily",
+    "dry",
+    "combination"
+  ],
+  "colour_space": "RGB",
+  "dataset_version": "hf-akage99-v1",
+  "input_channels": 3,
+  "input_height": 224,
+  "input_width": 224,
+  "metrics": {
+    "accuracy": 0.6923076923076923,
+    "class_names": [
+      "normal",
+      "oily",
+      "dry",
+      "combination"
+    ],
+    "confusion_matrix": [
+      [
+        186,
+        13,
+        14,
+        13
+      ],
+      [
+        6,
+        4,
+        3,
+        0
+      ],
+      [
+        12,
+        6,
+        10,
+        4
+      ],
+      [
+        18,
+        2,
+        1,
+        7
+      ]
+    ],
+    "cross_entropy_loss": 0.7672083973884583,
+    "expected_calibration_error": 0.03778771193928542,
+    "macro_f1": 0.4108618903026797,
+    "macro_precision": 0.41166184041184045,
+    "macro_recall": 0.42330028931245745,
+    "per_class": [
+      {
+        "f1": 0.8303571428571428,
+        "precision": 0.8378378378378378,
+        "recall": 0.8230088495575221,
+        "support": 226
+      },
+      {
+        "f1": 0.2105263157894737,
+        "precision": 0.16,
+        "recall": 0.3076923076923077,
+        "support": 13
+      },
+      {
+        "f1": 0.3333333333333333,
+        "precision": 0.35714285714285715,
+        "recall": 0.3125,
+        "support": 32
+      },
+      {
+        "f1": 0.2692307692307692,
+        "precision": 0.2916666666666667,
+        "recall": 0.25,
+        "support": 28
+      }
+    ],
+    "top_confidence_distribution": [
+      0,
+      0,
+      0,
+      15,
+      37,
+      43,
+      42,
+      45,
+      53,
+      64
+    ],
+    "weighted_f1": 0.6976678414585472
+  },
+  "model_name": "DermaScan Skin Type Classifier",
+  "model_version": "1.0.0",
+  "normalization": "zero_to_one",
+  "resize_mode": "letterbox",
+  "training_date": "2026-09-19T11:49:13.862415+00:00"
+}

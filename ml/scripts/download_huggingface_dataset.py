@@ -1,14 +1,14 @@
 """
-Download and prepare the Hugging Face Skin Type Classification dataset:
+Download, deduplicate, and prepare Hugging Face Skin Type Classification dataset:
 https://huggingface.co/datasets/akage99/skin_type_classification
-
-This script downloads images from Hugging Face and populates ml/data/raw/
-along with a standardized ml/data/manifest.csv.
 """
 
 import argparse
 import csv
+import hashlib
+import shutil
 import sys
+import zipfile
 from pathlib import Path
 
 try:
@@ -18,17 +18,16 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from datasets import load_dataset
+    from huggingface_hub import hf_hub_download
 except ImportError:
-    print("Note: 'datasets' package is required to pull directly from Hugging Face.")
-    print("Install it with: pip install datasets huggingface_hub")
+    print("Error: huggingface_hub is required. Install it using: pip install huggingface_hub")
+    sys.exit(1)
 
 ML_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ML_ROOT / "data"
 RAW_DIR = DATA_DIR / "raw"
 MANIFEST_PATH = DATA_DIR / "manifest.csv"
 
-# Label mapping to DermaScan AI canonical skin type classes
 CANONICAL_CLASSES = {"normal", "oily", "dry", "combination"}
 
 
@@ -45,65 +44,109 @@ def normalize_label(label_raw: str) -> str:
     return cleaned if cleaned in CANONICAL_CLASSES else "normal"
 
 
-def download_from_huggingface(dataset_id: str = "akage99/skin_type_classification"):
-    print(f"[*] Fetching dataset '{dataset_id}' from Hugging Face...")
+def compute_sha256(file_path: Path) -> str:
+    h = hashlib.sha256()
+    with open(file_path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def download_and_extract_hf_zip(repo_id: str = "akage99/skin_type_classification", filename: str = "dataset_skintype_vit_final.zip"):
+    print(f"[*] Downloading '{filename}' from Hugging Face dataset '{repo_id}'...")
     try:
-        ds = load_dataset(dataset_id)
+        downloaded_zip_path = hf_hub_download(
+            repo_id=repo_id,
+            filename=filename,
+            repo_type="dataset",
+        )
+        print(f"[+] Archive ready at: {downloaded_zip_path}")
     except Exception as exc:
-        print(f"[!] Failed to load dataset directly via Hugging Face API: {exc}")
-        print("[i] Alternatively, you can download the dataset zip from:")
-        print(f"    https://huggingface.co/datasets/{dataset_id}")
-        print(f"    and extract images into {RAW_DIR}")
+        print(f"[!] Failed to download zip from Hugging Face: {exc}")
         return False
 
+    # Clean raw folder for clean deduplicated ingestion
+    if RAW_DIR.exists():
+        shutil.rmtree(RAW_DIR, ignore_errors=True)
     RAW_DIR.mkdir(parents=True, exist_ok=True)
+
+    temp_extract_dir = DATA_DIR / "_hf_temp_extracted"
+    if temp_extract_dir.exists():
+        shutil.rmtree(temp_extract_dir, ignore_errors=True)
+    temp_extract_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"[*] Extracting archive into temporary workspace...")
+    with zipfile.ZipFile(downloaded_zip_path, "r") as zip_ref:
+        zip_ref.extractall(temp_extract_dir)
+
+    print(f"[*] Ingesting and deduplicating images into canonical classes {CANONICAL_CLASSES}...")
     manifest_rows = []
     class_counts = {c: 0 for c in CANONICAL_CLASSES}
+    seen_hashes = set()
+    skipped_duplicates = 0
 
-    print("[*] Processing images and building manifest.csv...")
+    valid_extensions = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
+    all_image_files = sorted([p for p in temp_extract_dir.rglob("*") if p.is_file() and p.suffix.lower() in valid_extensions])
 
-    for split_name in ds.keys():
-        split_data = ds[split_name]
-        for idx, item in enumerate(split_data):
-            image = item.get("image") or item.get("img")
-            label_val = item.get("label") or item.get("skin_type") or "normal"
+    for idx, img_path in enumerate(all_image_files):
+        # Determine class label from path parts
+        parent_parts = [part.lower() for part in img_path.parts]
+        found_class = "normal"
+        for part in reversed(parent_parts):
+            norm = normalize_label(part)
+            if norm in CANONICAL_CLASSES:
+                found_class = norm
+                break
 
-            if isinstance(label_val, int) and hasattr(split_data.features.get("label"), "int2str"):
-                label_str = split_data.features["label"].int2str(label_val)
-            else:
-                label_str = str(label_val)
+        split_hint = "train"
+        for part in parent_parts:
+            if "val" in part or "valid" in part:
+                split_hint = "val"
+                break
+            elif "test" in part:
+                split_hint = "test"
+                break
 
-            canonical_label = normalize_label(label_str)
-            image_id = f"hf_{canonical_label}_{split_name}_{idx:05d}"
-            target_filename = f"{image_id}.jpg"
-            class_folder = RAW_DIR / canonical_label
-            class_folder.mkdir(parents=True, exist_ok=True)
-            target_path = class_folder / target_filename
-            relative_path = f"raw/{canonical_label}/{target_filename}"
+        # Check sha256 to ensure zero duplicate hash issues
+        file_hash = compute_sha256(img_path)
+        if file_hash in seen_hashes:
+            skipped_duplicates += 1
+            continue
+        seen_hashes.add(file_hash)
 
-            if image is not None:
-                if not isinstance(image, Image.Image):
-                    image = Image.open(image)
-                image = image.convert("RGB")
-                image.save(target_path, "JPEG", quality=95)
-                width, height = image.size
-            else:
-                width, height = 224, 224
+        class_folder = RAW_DIR / found_class
+        class_folder.mkdir(parents=True, exist_ok=True)
 
-            class_counts[canonical_label] += 1
-            manifest_rows.append({
-                "image_id": image_id,
-                "relative_path": relative_path,
-                "skin_type_label": canonical_label,
-                "source": "huggingface:akage99/skin_type_classification",
-                "license": "open_access_research",
-                "subject_id": f"sub_{image_id}",
-                "split": "train" if split_name == "train" else ("val" if "val" in split_name else "test"),
-                "image_width": str(width),
-                "image_height": str(height),
-                "quality_status": "pass",
-                "notes": f"Downloaded from Hugging Face {dataset_id}",
-            })
+        image_id = f"hf_{found_class}_{idx:05d}"
+        target_filename = f"{image_id}{img_path.suffix.lower()}"
+        target_path = class_folder / target_filename
+        relative_path = f"raw/{found_class}/{target_filename}"
+
+        try:
+            with Image.open(img_path) as img:
+                img = img.convert("RGB")
+                img.save(target_path, "JPEG", quality=95)
+                width, height = img.size
+        except Exception:
+            continue
+
+        class_counts[found_class] += 1
+        manifest_rows.append({
+            "image_id": image_id,
+            "relative_path": relative_path,
+            "skin_type_label": found_class,
+            "source": f"huggingface:{repo_id}",
+            "license": "open_access_research",
+            "subject_id": f"sub_{image_id}",
+            "split": split_hint,
+            "image_width": str(width),
+            "image_height": str(height),
+            "quality_status": "pass",
+            "notes": f"Extracted from {filename}",
+        })
+
+    # Clean up temp folder
+    shutil.rmtree(temp_extract_dir, ignore_errors=True)
 
     # Write manifest.csv
     fieldnames = [
@@ -125,9 +168,10 @@ def download_from_huggingface(dataset_id: str = "akage99/skin_type_classificatio
         writer.writeheader()
         writer.writerows(manifest_rows)
 
-    print(f"\n[+] Successfully prepared {len(manifest_rows)} images!")
-    print(f"[+] Manifest created at: {MANIFEST_PATH}")
-    print("[+] Class distribution:")
+    print(f"\n[+] Successfully organized {len(manifest_rows)} unique images into {RAW_DIR}")
+    print(f"[+] Deduplication: Skipped {skipped_duplicates} duplicate images.")
+    print(f"[+] Clean manifest created at: {MANIFEST_PATH}")
+    print("[+] Unique class distribution:")
     for cls_name, count in class_counts.items():
         print(f"    - {cls_name:12s}: {count} images")
 
@@ -143,7 +187,7 @@ def main():
         help="Hugging Face dataset identifier (default: akage99/skin_type_classification)",
     )
     args = parser.parse_args()
-    download_from_huggingface(args.dataset)
+    download_and_extract_hf_zip(args.dataset)
 
 
 if __name__ == "__main__":
