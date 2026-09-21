@@ -19,11 +19,22 @@ export function clearStoredToken() {
 function resolveApiBaseUrl() {
   const envUrl =
     import.meta.env.VITE_API_BASE_URL ||
-    import.meta.env.VITE_API_URL ||
-    "https://dermascan-ai-5i1v.onrender.com/api";
+    import.meta.env.VITE_API_URL;
 
-  const cleanUrl = envUrl.trim().replace(/\/+$/, "");
-  return cleanUrl.endsWith("/api") ? cleanUrl : `${cleanUrl}/api`;
+  if (envUrl && typeof envUrl === "string" && envUrl.trim() !== "") {
+    const cleanUrl = envUrl.trim().replace(/\/+$/, "");
+    return cleanUrl.endsWith("/api") ? cleanUrl : `${cleanUrl}/api`;
+  }
+
+  // When running on localhost / 127.0.0.1, use Vite proxy '/api' so local requests route to backend
+  if (
+    typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+  ) {
+    return "/api";
+  }
+
+  return "https://dermascan-ai-5i1v.onrender.com/api";
 }
 
 const api = axios.create({
