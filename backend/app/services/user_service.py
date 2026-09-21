@@ -1,13 +1,16 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+import secrets
 from typing import Any
 
 from bson import ObjectId
 from pymongo.errors import DuplicateKeyError
 
+from app.core.config import get_settings
 from app.core.security import hash_password, verify_password
 from app.models.user import build_user_document, to_object_id, user_document_to_public
 from app.schemas.auth import RegisterRequest
 from app.schemas.user import UserPublic
+from app.services.email_service import send_password_reset_email
 
 
 class DuplicateEmailError(Exception):
@@ -19,6 +22,18 @@ class InvalidCredentialsError(Exception):
 
 
 class InactiveUserError(Exception):
+    pass
+
+
+class UserNotFoundError(Exception):
+    pass
+
+
+class InvalidResetOtpError(Exception):
+    pass
+
+
+class ExpiredResetOtpError(Exception):
     pass
 
 
@@ -92,5 +107,90 @@ async def authenticate_user(
     return user_document_to_public(user)
 
 
+async def create_password_reset_otp(
+    users_collection: Any,
+    email: str,
+) -> tuple[str, bool]:
+    settings = get_settings()
+    user = await get_user_by_email(users_collection, email)
+    if not user:
+        raise UserNotFoundError("No account found with this email address.")
+
+    if not user.get("is_active", True):
+        raise InactiveUserError("Account is inactive.")
+
+    # Generate 6-digit numeric OTP
+    otp = "".join(secrets.choice("0123456789") for _ in range(6))
+    otp_hash = hash_password(otp)
+    now = datetime.now(timezone.utc)
+    expires_at = now + timedelta(minutes=settings.reset_otp_expire_minutes)
+
+    await users_collection.update_one(
+        {"_id": user["_id"]},
+        {
+            "$set": {
+                "reset_otp_hash": otp_hash,
+                "reset_otp_expires_at": expires_at,
+                "updated_at": now,
+            }
+        },
+    )
+
+    email_sent = await send_password_reset_email(
+        recipient_email=user["email"],
+        otp=otp,
+        user_name=user.get("full_name"),
+    )
+
+    return otp, email_sent
+
+
+async def reset_user_password(
+    users_collection: Any,
+    email: str,
+    otp: str,
+    new_password: str,
+) -> UserPublic:
+    user = await get_user_by_email(users_collection, email)
+    if not user:
+        raise UserNotFoundError("No account found with this email address.")
+
+    stored_hash = user.get("reset_otp_hash")
+    expires_at = user.get("reset_otp_expires_at")
+
+    if not stored_hash or not expires_at:
+        raise InvalidResetOtpError("No active password reset request found. Please request a new code.")
+
+    now = datetime.now(timezone.utc)
+    if expires_at.tzinfo is None:
+        expires_at = expires_at.replace(tzinfo=timezone.utc)
+
+    if now > expires_at:
+        raise ExpiredResetOtpError("The verification code has expired. Please request a new one.")
+
+    if not verify_password(otp, stored_hash):
+        raise InvalidResetOtpError("Invalid verification code.")
+
+    new_hash = hash_password(new_password)
+
+    await users_collection.update_one(
+        {"_id": user["_id"]},
+        {
+            "$set": {
+                "password_hash": new_hash,
+                "updated_at": now,
+            },
+            "$unset": {
+                "reset_otp_hash": "",
+                "reset_otp_expires_at": "",
+            },
+        },
+    )
+
+    updated_user = await users_collection.find_one({"_id": user["_id"]})
+    return user_document_to_public(updated_user)
+
+
 def ensure_object_id(value: str | ObjectId) -> str:
     return str(value)
+

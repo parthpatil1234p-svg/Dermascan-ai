@@ -5,6 +5,8 @@ const fieldMap = {
   confirm_password: "confirmPassword",
   age_group: "ageGroup",
   accept_terms: "acceptTerms",
+  new_password: "newPassword",
+  otp: "otp",
 };
 
 function cleanBackendMessage(message) {
@@ -87,4 +89,20 @@ export async function logoutUser() {
     clearStoredToken();
   }
 }
+
+export async function requestPasswordReset(email) {
+  const response = await api.post("/auth/forgot-password", { email });
+  return response.data;
+}
+
+export async function resetPassword({ email, otp, newPassword, confirmPassword }) {
+  const response = await api.post("/auth/reset-password", {
+    email,
+    otp,
+    new_password: newPassword,
+    confirm_password: confirmPassword,
+  });
+  return response.data;
+}
+
 

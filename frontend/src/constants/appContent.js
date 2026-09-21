@@ -10,6 +10,7 @@ export const ROUTES = {
   home: "/",
   login: "/login",
   register: "/register",
+  forgotPassword: "/forgot-password",
   skinProfile: "/skin-profile",
   faceScan: "/face-scan",
   imageQualityCheck: "/image-quality-check",

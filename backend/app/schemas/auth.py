@@ -67,3 +67,46 @@ class AuthResponse(BaseModel):
 
 class LogoutResponse(BaseModel):
     message: str
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, value: str) -> str:
+        return str(value).strip().lower()
+
+
+class ForgotPasswordResponse(BaseModel):
+    message: str
+    email: str
+    dev_otp: str | None = None
+
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    otp: str = Field(..., min_length=6, max_length=6)
+    new_password: str = Field(..., min_length=8, max_length=128)
+    confirm_password: str = Field(..., min_length=8, max_length=128)
+
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, value: str) -> str:
+        return str(value).strip().lower()
+
+    @field_validator("otp", mode="before")
+    @classmethod
+    def sanitize_otp(cls, value: str) -> str:
+        return str(value).strip()
+
+    @model_validator(mode="after")
+    def validate_matching_passwords(self) -> "ResetPasswordRequest":
+        if self.new_password != self.confirm_password:
+            raise ValueError("New passwords do not match.")
+        return self
+
+
+class ResetPasswordResponse(BaseModel):
+    message: str
+

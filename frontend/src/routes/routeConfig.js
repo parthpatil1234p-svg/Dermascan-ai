@@ -33,6 +33,7 @@ const ImagePreprocessingPage = lazyWithRetry(() => import("../pages/ImagePreproc
 const ImageQualityCheckPage = lazyWithRetry(() => import("../pages/ImageQualityCheckPage"));
 const LoginPage = lazyWithRetry(() => import("../pages/LoginPage"));
 const RegisterPage = lazyWithRetry(() => import("../pages/RegisterPage"));
+const ForgotPasswordPage = lazyWithRetry(() => import("../pages/ForgotPasswordPage"));
 const ReportsPage = lazyWithRetry(() => import("../pages/ReportsPage"));
 const SkinProfilePage = lazyWithRetry(() => import("../pages/SkinProfilePage"));
 const SkinTypeAnalysisPage = lazyWithRetry(() => import("../pages/SkinTypeAnalysisPage"));
@@ -71,6 +72,11 @@ export const routeConfig = [
   {
     path: "/register",
     component: RegisterPage,
+    publicOnly: true,
+  },
+  {
+    path: "/forgot-password",
+    component: ForgotPasswordPage,
     publicOnly: true,
   },
   {

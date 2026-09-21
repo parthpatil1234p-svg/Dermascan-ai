@@ -150,12 +150,12 @@ export default function LoginPage() {
                 updateField("rememberMe", event.target.checked)
               }
             />
-            <a
-              href="#forgot-password"
+            <Link
+              to={ROUTES.forgotPassword}
               className="text-sm font-semibold text-brand-700 hover:text-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
         </div>
 
