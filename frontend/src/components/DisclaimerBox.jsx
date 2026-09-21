@@ -13,12 +13,13 @@ export function AdBanner({
   useEffect(() => {
     try {
       if (typeof window !== "undefined" && adRef.current) {
-        if (!adRef.current.getAttribute("data-adsbygoogle-status")) {
+        const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        if (!isLocal && !adRef.current.getAttribute("data-adsbygoogle-status")) {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
         }
       }
     } catch (err) {
-      console.error("AdSense error:", err);
+      // Gracefully handle AdSense errors or ad-blockers
     }
   }, []);
 

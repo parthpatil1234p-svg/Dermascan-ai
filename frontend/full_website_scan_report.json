@@ -1,0 +1,344 @@
+{
+  "testedPages": [
+    "Home Page",
+    "Products Catalogue",
+    "Ingredients Library",
+    "Ingredient Safety Checker",
+    "Login Page",
+    "Register Page",
+    "Forgot Password Page"
+  ],
+  "buttonsTested": 45,
+  "buttonsPassed": 45,
+  "buttonsFailed": 0,
+  "consoleErrors": [],
+  "networkErrors": [],
+  "pageDetails": [
+    {
+      "name": "Home Page",
+      "url": "http://localhost:5173/",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "Acne & Comedone Mapping",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Hydration & Barrier Index",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Vascular Erythema & Sensitivity",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Pore Topography & Clarity",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "Products Catalogue",
+      "url": "http://localhost:5173/products",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "Search",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Reset",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "Ingredients Library",
+      "url": "http://localhost:5173/ingredients",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "Search",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "Ingredient Safety Checker",
+      "url": "http://localhost:5173/ingredient-checker",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "🧪 10% Niacinamide & Zinc Serum",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "🧪 Salicylic Acid 2% Exfoliant",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "🧪 Heavy Night Cream with Fragrance",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Execute Safety Audit",
+          "visible": true,
+          "enabled": false,
+          "status": "DISABLED (BY DESIGN)"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "Login Page",
+      "url": "http://localhost:5173/login",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "Show password",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Login",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "Register Page",
+      "url": "http://localhost:5173/register",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "Show password",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Show confirm password",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Register",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "Forgot Password Page",
+      "url": "http://localhost:5173/forgot-password",
+      "status": "PASS",
+      "buttons": [
+        {
+          "text": "Toggle navigation menu",
+          "visible": false,
+          "enabled": true,
+          "status": "NOT VISIBLE"
+        },
+        {
+          "text": "Send Verification Code",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Close welcome message",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "Get Started",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        },
+        {
+          "text": "● AI LIVE",
+          "visible": true,
+          "enabled": true,
+          "status": "CLICKABLE / HOVER OK"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

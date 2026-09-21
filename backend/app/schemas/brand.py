@@ -36,9 +36,9 @@ class BrandResponse(BaseModel):
     brand_name: str
     country_of_origin: str | None = None
     official_website: str | None = None
-    is_verified: bool
-    created_at: datetime
-    updated_at: datetime
+    is_verified: bool = True
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
 
 
 class BrandListResponse(BaseModel):
@@ -47,4 +47,9 @@ class BrandListResponse(BaseModel):
 
 
 def brand_document_to_response(document: dict[str, Any]) -> BrandResponse:
-    return BrandResponse(**{key: value for key, value in document.items() if key != "_id"})
+    now = datetime.utcnow()
+    data = {key: value for key, value in document.items() if key != "_id"}
+    data.setdefault("is_verified", True)
+    data.setdefault("created_at", now)
+    data.setdefault("updated_at", now)
+    return BrandResponse(**data)
