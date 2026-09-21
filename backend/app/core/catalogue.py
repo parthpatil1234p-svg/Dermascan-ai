@@ -79,8 +79,8 @@ SENSITIVITY_SUITABILITY = (
     "unknown",
 )
 AVAILABILITY_STATUSES = ("available", "limited", "unavailable", "unknown")
-DATA_TYPES = ("verified_real", "verified_manual", "demo_synthetic", "unverified_draft")
-PUBLIC_DATA_TYPES = ("verified_real", "verified_manual", "demo_synthetic")
+DATA_TYPES = ("verified_real", "verified_manual", "demo_synthetic", "unverified_draft", "curated_commercial")
+PUBLIC_DATA_TYPES = ("verified_real", "verified_manual", "demo_synthetic", "curated_commercial")
 AGE_GROUPS = (
     "Under 18",
     "18-25",

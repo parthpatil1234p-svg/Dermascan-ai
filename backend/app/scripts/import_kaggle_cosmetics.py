@@ -157,7 +157,7 @@ def process_kaggle_row(row: dict[str, str], index: int) -> dict[str, Any] | None
         "normalized_brand_name": brand_name.casefold(),
         "category": category,
         "short_description": short_description,
-        "data_type": "curated_commercial",
+        "data_type": "verified_real",
         "is_demo_product": False,
         "is_active": True,
         "suitable_skin_types": skin_types,

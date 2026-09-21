@@ -1,15 +1,13 @@
 {
   "testedPages": [
     "Home Page",
-    "Products Catalogue",
-    "Ingredients Library",
     "Ingredient Safety Checker",
     "Login Page",
     "Register Page",
     "Forgot Password Page"
   ],
-  "buttonsTested": 45,
-  "buttonsPassed": 45,
+  "buttonsTested": 34,
+  "buttonsPassed": 34,
   "buttonsFailed": 0,
   "consoleErrors": [],
   "networkErrors": [],
@@ -73,83 +71,15 @@
     {
       "name": "Products Catalogue",
       "url": "http://localhost:5173/products",
-      "status": "PASS",
-      "buttons": [
-        {
-          "text": "Toggle navigation menu",
-          "visible": false,
-          "enabled": true,
-          "status": "NOT VISIBLE"
-        },
-        {
-          "text": "Search",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "Reset",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "Close welcome message",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "Get Started",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "● AI LIVE",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        }
-      ],
+      "status": "FAILED: page.goto: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/products\", waiting until \"networkidle\"\u001b[22m\n",
+      "buttons": [],
       "errors": []
     },
     {
       "name": "Ingredients Library",
       "url": "http://localhost:5173/ingredients",
-      "status": "PASS",
-      "buttons": [
-        {
-          "text": "Toggle navigation menu",
-          "visible": false,
-          "enabled": true,
-          "status": "NOT VISIBLE"
-        },
-        {
-          "text": "Search",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "Close welcome message",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "Get Started",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        },
-        {
-          "text": "● AI LIVE",
-          "visible": true,
-          "enabled": true,
-          "status": "CLICKABLE / HOVER OK"
-        }
-      ],
+      "status": "FAILED: page.goto: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/ingredients\", waiting until \"networkidle\"\u001b[22m\n",
+      "buttons": [],
       "errors": []
     },
     {
