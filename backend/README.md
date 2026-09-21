@@ -1,3 +1,14 @@
+---
+title: DermaScan AI Backend
+emoji: 🔬
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: 5.12.0
+app_file: app.py
+pinned: false
+---
+
 # DermaScan AI Backend
 
 FastAPI backend for authentication, owner-scoped profiles and temporary images,

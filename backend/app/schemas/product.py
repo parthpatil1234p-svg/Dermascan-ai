@@ -22,13 +22,13 @@ from app.schemas.brand import clean_text
 from app.schemas.ingredient import unique_clean_strings
 from app.schemas.pagination import PaginationMetadata
 
-ProductCategory = Literal[*PRODUCT_CATEGORIES]
-SkinType = Literal[*SKIN_TYPES]
-VisibleConcern = Literal[*VISIBLE_CONCERNS]
-DataType = Literal[*DATA_TYPES]
-AvailabilityStatus = Literal[*AVAILABILITY_STATUSES]
-FragranceStatus = Literal[*FRAGRANCE_STATUSES]
-SensitivitySuitability = Literal[*SENSITIVITY_SUITABILITY]
+ProductCategory = Literal.__getitem__(PRODUCT_CATEGORIES)
+SkinType = Literal.__getitem__(SKIN_TYPES)
+VisibleConcern = Literal.__getitem__(VISIBLE_CONCERNS)
+DataType = Literal.__getitem__(DATA_TYPES)
+AvailabilityStatus = Literal.__getitem__(AVAILABILITY_STATUSES)
+FragranceStatus = Literal.__getitem__(FRAGRANCE_STATUSES)
+SensitivitySuitability = Literal.__getitem__(SENSITIVITY_SUITABILITY)
 
 
 class ProductIngredient(BaseModel):
@@ -43,7 +43,7 @@ class ProductIngredient(BaseModel):
 
 class Money(BaseModel):
     amount: float = Field(ge=0, le=1_000_000)
-    currency: Literal[*SUPPORTED_CURRENCIES] = "INR"
+    currency: Literal.__getitem__(SUPPORTED_CURRENCIES) = "INR"
 
 
 class PackageSize(BaseModel):
@@ -81,16 +81,16 @@ class ProductCreate(BaseModel):
     normalized_ingredients: list[str] = Field(default_factory=list, max_length=300)
     unmapped_ingredients: list[str] = Field(default_factory=list, max_length=100)
     highlighted_ingredients: list[str] = Field(default_factory=list, max_length=20)
-    potential_irritant_flags: list[Literal[*CAUTION_FLAGS]] = Field(default_factory=list)
+    potential_irritant_flags: list[Literal.__getitem__(CAUTION_FLAGS)] = Field(default_factory=list)
     allergen_flags: list[str] = Field(default_factory=list, max_length=30)
     fragrance_status: FragranceStatus = "unknown"
-    essential_oil_status: Literal[*ESSENTIAL_OIL_STATUSES] = "unknown"
+    essential_oil_status: Literal.__getitem__(ESSENTIAL_OIL_STATUSES) = "unknown"
     comedogenic_claim_status: Literal["claimed_non_comedogenic", "not_specified", "unknown"] = (
         "not_specified"
     )
-    minimum_age_group: Literal[*AGE_GROUPS] = "Not specified"
-    maximum_age_group: Literal[*AGE_GROUPS] = "Not specified"
-    usage_time: Literal[*USAGE_TIMES] = "not_specified"
+    minimum_age_group: Literal.__getitem__(AGE_GROUPS) = "Not specified"
+    maximum_age_group: Literal.__getitem__(AGE_GROUPS) = "Not specified"
+    usage_time: Literal.__getitem__(USAGE_TIMES) = "not_specified"
     usage_frequency: str | None = Field(default=None, max_length=120)
     price: Money | None = None
     package_size: PackageSize | None = None

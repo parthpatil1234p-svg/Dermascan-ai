@@ -124,16 +124,20 @@ def build_user_filter_context(
         "Fragrance-free only": "fragrance_free_only",
         "Prefer fragrance-free": "prefer_fragrance_free",
         "No preference": "no_preference",
+        "fragrance_free_only": "fragrance_free_only",
+        "prefer_fragrance_free": "prefer_fragrance_free",
+        "no_preference": "no_preference",
     }
     has_budget = profile.get("budget_min") is not None and profile.get("budget_max") is not None
+    fragrance_pref = preference_map.get(profile.get("fragrance_preference"), "no_preference")
     return UserFilteringContext(
         user_id=user_id,
-        age_group=profile["age_group"],
-        country=normalize_country(profile["country"]),
+        age_group=profile.get("age_group", "20-29"),
+        country=normalize_country(profile.get("country", "IN")),
         skin_type=FilteringSkinType(
             value="uncertain" if is_uncertain else normalize_key(final_skin_type),
             status="uncertain" if is_uncertain else "estimated",
-            confidence=float(skin_type_report.get("model_confidence", 0)),
+            confidence=float(skin_type_report.get("model_confidence") or 0.8),
         ),
         visible_concerns=concerns,
         self_reported_sensitivity=profile.get("is_sensitive"),
@@ -141,7 +145,7 @@ def build_user_filter_context(
         ingredients_to_avoid=normalize_avoidances(
             profile.get("ingredients_to_avoid", []), ingredient_lookup
         ),
-        fragrance_preference=preference_map[profile["fragrance_preference"]],
+        fragrance_preference=fragrance_pref,
         budget=FilteringBudget(
             minimum=profile.get("budget_min"),
             maximum=profile.get("budget_max"),

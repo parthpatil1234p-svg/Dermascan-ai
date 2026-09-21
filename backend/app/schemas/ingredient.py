@@ -7,7 +7,7 @@ from app.core.catalogue import INGREDIENT_CATEGORIES
 from app.schemas.brand import clean_text
 from app.schemas.pagination import PaginationMetadata
 
-IngredientCategory = Literal[*INGREDIENT_CATEGORIES]
+IngredientCategory = Literal.__getitem__(INGREDIENT_CATEGORIES)
 
 
 def unique_clean_strings(values: list[str], *, maximum: int = 30) -> list[str]:

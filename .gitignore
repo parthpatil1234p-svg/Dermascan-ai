@@ -32,4 +32,9 @@ build/
 ml/data/raw/
 **/tensorboard/
 ml/data/_hf_temp_extracted/
+
+# Storage & Temporary Files
+backend/storage/temp_*
+backend/storage/uploads/
+
 

@@ -38,6 +38,9 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
+  // Bypass Localtunnel reminder page for automated API requests
+  config.headers["bypass-tunnel-reminder"] = "true";
+
   return config;
 });
 

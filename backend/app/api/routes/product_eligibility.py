@@ -99,7 +99,7 @@ async def evaluate_product_eligibility(
 async def read_product_eligibility_report(
     upload_id: str,
     eligibility_status: EligibilityStatus | None = Query(None, alias="status"),
-    category: Literal[*PRODUCT_CATEGORIES] | None = None,
+    category: Literal.__getitem__(PRODUCT_CATEGORIES) | None = None,
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
     current_user: UserPublic = Depends(get_current_user),

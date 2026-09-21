@@ -23,7 +23,7 @@ router = APIRouter(prefix="/ingredients", tags=["ingredients"])
 @router.get("", response_model=IngredientListResponse)
 async def read_ingredients(
     search: str | None = Query(None, max_length=100),
-    ingredient_category: Literal[*INGREDIENT_CATEGORIES] | None = None,
+    ingredient_category: Literal.__getitem__(INGREDIENT_CATEGORIES) | None = None,
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
     collection=Depends(get_ingredients_collection),

@@ -87,7 +87,7 @@ async def generate_product_recommendations(
 @router.get("/{upload_id}", response_model=ProductRecommendationReportResponse)
 async def read_product_recommendation_report(
     upload_id: str,
-    category: Literal[*PRODUCT_CATEGORIES] | None = None,
+    category: Literal.__getitem__(PRODUCT_CATEGORIES) | None = None,
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
     minimum_score: float = Query(0, ge=0, le=100),
