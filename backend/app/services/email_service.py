@@ -102,17 +102,22 @@ def _send_smtp_email_sync(
 
     try:
         if settings.smtp_port == 465:
-            with smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, timeout=10) as server:
-                if settings.smtp_user and settings.smtp_password:
-                    server.login(settings.smtp_user, settings.smtp_password)
-                server.sendmail(sender_email, recipient_email, msg.as_string())
+            server = smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, timeout=20)
+            server.ehlo()
+            if settings.smtp_user and settings.smtp_password:
+                server.login(settings.smtp_user, settings.smtp_password)
+            server.sendmail(sender_email, recipient_email, msg.as_string())
+            server.quit()
         else:
-            with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=10) as server:
-                if settings.smtp_tls:
-                    server.starttls()
-                if settings.smtp_user and settings.smtp_password:
-                    server.login(settings.smtp_user, settings.smtp_password)
-                server.sendmail(sender_email, recipient_email, msg.as_string())
+            server = smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=20)
+            server.ehlo()
+            if settings.smtp_tls:
+                server.starttls()
+                server.ehlo()
+            if settings.smtp_user and settings.smtp_password:
+                server.login(settings.smtp_user, settings.smtp_password)
+            server.sendmail(sender_email, recipient_email, msg.as_string())
+            server.quit()
         logger.info("Successfully sent password reset email to %s", recipient_email)
         return True
     except Exception as exc:
