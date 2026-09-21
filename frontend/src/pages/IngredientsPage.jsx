@@ -33,7 +33,9 @@ export default function IngredientsPage() {
   const update = (name, value) => {
     const next = new URLSearchParams(params);
     value ? next.set(name, value) : next.delete(name);
-    next.delete("page");
+    if (name !== "page") {
+      next.delete("page");
+    }
     setParams(next);
   };
 
